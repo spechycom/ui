@@ -45,11 +45,10 @@ TODO:
       ```
       Böylece ileride `/spechy-ui [bileşen-adı ...]` ile bileşen ekleyip
       güncelleyebilirsin. Claude Code değilse bu adımı atla.
-- [ ] `password-input` kurulduysa: bileşen `react-i18next` ile
-      `t('password.show')` / `t('password.hide')` çağırıyor. Projede i18n
-      kuruluysa bu iki anahtarı çeviri dosyasına ekle; kurulu değilse
-      `password-input.tsx` içindeki `t(...)` çağrılarını düz string'e çevir.
-      Kullanıcıya hangisini yaptığını söyle.
+- [ ] `password-input` kurulduysa ve projede i18n varsa: bileşeni kullanan
+      yerlerde `showLabel`/`hideLabel` prop'larına kendi çevirini geç
+      (`<PasswordInput showLabel={t('password.show')} hideLabel={t('password.hide')} />`).
+      i18n yoksa atla, varsayılan İngilizce string'ler kalır.
 
 EXECUTE NOW: Yukarıdaki TODO listesini tamamla, hedef: yukarıdaki DONE WHEN
 durumuna ulaşmak.

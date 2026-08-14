@@ -85,12 +85,12 @@ slider, spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip
 
 ## Bilinmesi gerekenler
 
-- **`password-input`** görünür/gizle butonunun `aria-label`'ı için
-  `react-i18next` kullanır (`password.show` / `password.hide` anahtarları).
-  Projenizde i18n kuruluysa bu iki anahtarı çeviri dosyanıza ekleyin;
-  kurulu değilse bileşeni kopyaladıktan sonra `t(...)` çağrılarını düz
-  string'e çevirin.
 - Bileşenler `@tabler/icons-react` kullanır, `lucide-react` değil.
+- `password-input`'un görünür/gizle butonu `aria-label`'ı için sabit bir
+  i18n bağımlılığı yok; `showLabel`/`hideLabel` prop'larıyla dışarıdan
+  geçilir (varsayılan İngilizce). Projenizde i18n varsa
+  `<PasswordInput showLabel={t('password.show')} hideLabel={t('password.hide')} />`
+  gibi kendi çevirinizi geçin.
 
 ## Yeni bileşen ekleme / güncelleme
 

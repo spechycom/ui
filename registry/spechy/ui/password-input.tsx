@@ -1,12 +1,21 @@
 import { IconEye, IconEyeOff } from '@tabler/icons-react'
 import type * as React from 'react'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 
-function PasswordInput({ className, ...props }: React.ComponentProps<'input'>) {
-  const { t } = useTranslation()
+interface PasswordInputProps extends React.ComponentProps<'input'> {
+  /** Görünür/gizle butonunun aria-label'ı. Projenizde i18n varsa t('...') ile geçin. */
+  showLabel?: string
+  hideLabel?: string
+}
+
+function PasswordInput({
+  className,
+  showLabel = 'Show password',
+  hideLabel = 'Hide password',
+  ...props
+}: PasswordInputProps) {
   const [visible, setVisible] = useState(false)
 
   return (
@@ -15,7 +24,7 @@ function PasswordInput({ className, ...props }: React.ComponentProps<'input'>) {
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
-        aria-label={visible ? t('password.hide') : t('password.show')}
+        aria-label={visible ? hideLabel : showLabel}
         className="absolute inset-y-0 end-0 flex w-10 items-center justify-center text-muted-foreground hover:text-foreground"
       >
         {visible ? <IconEyeOff className="size-[18px]" /> : <IconEye className="size-[18px]" />}
@@ -24,4 +33,4 @@ function PasswordInput({ className, ...props }: React.ComponentProps<'input'>) {
   )
 }
 
-export { PasswordInput }
+export { PasswordInput, type PasswordInputProps }

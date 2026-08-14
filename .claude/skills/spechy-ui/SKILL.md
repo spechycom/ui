@@ -67,9 +67,9 @@ npx shadcn@latest add @spechy/spechy-ui-all
 **Bitti sayılır:** komut sıfır çıkış koduyla bitti, istenen bileşen
 dosyaları projenin ui alias dizininde oluştu.
 
-## 5. Bilinen istisnaları bildir
+## 5. `password-input` kurulduysa i18n'e bağla (opsiyonel)
 
-`password-input` kuruldularsa: bileşen `react-i18next` ile `t('password.show')`
-/ `t('password.hide')` çağırıyor. Projede i18n kuruluysa bu iki anahtarı
-çeviri dosyasına ekle; kurulu değilse `password-input.tsx` içindeki `t(...)`
-çağrılarını düz string'e çevir. Kullanıcıya hangisini yaptığını söyle.
+Bileşenin sabit bir i18n bağımlılığı yok; `showLabel`/`hideLabel` prop'ları
+varsayılan İngilizce string taşır. Projede i18n kuruluysa, bileşeni kullanan
+yerlerde `<PasswordInput showLabel={t('password.show')} hideLabel={t('password.hide')} />`
+gibi kendi çevirini geç. Kurulu değilse bu adımı atla, varsayılanlar kalır.

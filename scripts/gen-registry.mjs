@@ -11,7 +11,6 @@ const NPM_DEP_MAP = {
   'date-fns': 'date-fns',
   'date-fns/locale': 'date-fns',
   'react-day-picker': 'react-day-picker',
-  'react-i18next': 'react-i18next',
 }
 
 const files = readdirSync(DIR).filter((f) => f.endsWith('.tsx'))

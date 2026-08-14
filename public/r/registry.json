@@ -397,8 +397,7 @@
       "type": "registry:ui",
       "title": "password-input",
       "dependencies": [
-        "@tabler/icons-react",
-        "react-i18next"
+        "@tabler/icons-react"
       ],
       "registryDependencies": [
         "@spechy/input",
