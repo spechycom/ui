@@ -10,6 +10,10 @@ Kaynak: [`spechy-omni-web`](https://github.com/spechycom/spechy-omni-web)
 `src/shared/ui/`'den taşındı ve standart shadcn alias'larına (`@/components/ui`,
 `@/lib/utils`) uyacak şekilde yeniden yazıldı.
 
+## Önizleme
+
+![Spechy UI bileşenleriyle kurulmuş örnek bir dashboard](./docs/dashboard-showcase.png)
+
 ## Önkoşullar
 
 Hedef projenizde şunlar kurulu olmalı:
