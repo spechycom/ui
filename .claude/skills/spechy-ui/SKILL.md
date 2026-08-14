@@ -9,9 +9,13 @@ allowed-tools: Bash, Read, Edit, Write
 `@spechy` registry'sinden bileşen kurar. Kaynak ve tam katalog:
 https://github.com/spechycom/ui
 
+Aşağıdaki komutlarda `npx` yazan her yerde, projenin kilit dosyasına göre
+doğru çalıştırıcıyı kullan: `pnpm-lock.yaml` → `pnpm dlx`, `yarn.lock` →
+`yarn dlx`, `bun.lockb`/`bun.lock` → `bunx --bun`, hiçbiri yoksa `npx`.
+
 ## 1. `components.json` var mı, kontrol et
 
-Yoksa `pnpm dlx shadcn@latest init` ile önce projeyi shadcn'e bağla —
+Yoksa `npx shadcn@latest init` ile önce projeyi shadcn'e bağla —
 bu adım stil ve alias sorularını interaktif sorar, atlanamaz.
 
 **Bitti sayılır:** `components.json` dosyası proje kökünde mevcut.
@@ -22,7 +26,9 @@ yetmez, dosyalar `src/` yerine literal bir `@/` klasörüne düşer. Yoksa ekle.
 
 ## 2. `@spechy` registry'sini tanımla
 
-`components.json`'ı oku. `registries.@spechy` yoksa ekle:
+`components.json`'ı oku. `registries.@spechy` yoksa ekle — bu tanım proje
+başına **bir kere** yapılır, `{name}` yer tutucusunu CLI her `add`
+çağrısında otomatik dolduruyor, bileşen başına tekrarlanmaz:
 
 ```json
 "registries": {
@@ -39,7 +45,7 @@ Zaten varsa bu adımı atla.
 Proje ana CSS dosyasında `spechy-ui-theme.css` import'u yoksa:
 
 ```bash
-pnpm dlx shadcn@latest add @spechy/theme
+npx shadcn@latest add @spechy/theme
 ```
 
 Sonra oluşan dosyayı proje ana CSS dosyasına, `@import "tailwindcss"`'ten
@@ -53,9 +59,9 @@ kurulu değilse ekle.
 Argüman verildiyse o bileşenleri, verilmediyse tümünü kur:
 
 ```bash
-# argümanla: pnpm dlx shadcn@latest add @spechy/button @spechy/dialog
+# argümanla: npx shadcn@latest add @spechy/button @spechy/dialog
 # argümansız (hepsi):
-pnpm dlx shadcn@latest add @spechy/spechy-ui-all
+npx shadcn@latest add @spechy/spechy-ui-all
 ```
 
 **Bitti sayılır:** komut sıfır çıkış koduyla bitti, istenen bileşen
