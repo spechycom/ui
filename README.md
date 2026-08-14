@@ -24,6 +24,14 @@ Hedef projenizde şunlar kurulu olmalı:
   literal bir `@/` klasörüne düşer. Bkz.
   [shadcn Vite kurulum dokümanı](https://ui.shadcn.com/docs/installation/vite).
 
+## Otomatik kurulum (herhangi bir coding agent)
+
+Uğraşmak istemiyorsanız [`install.md`](./install.md)'nin tüm içeriğini
+kopyalayıp Claude Code, Cursor, Codex vb. bir coding agent'a yapıştırın —
+agent `components.json` kurulumundan bileşen eklemeye, Claude Code'daysa
+`.claude/skills/spechy-ui/` skill'ini projeye eklemeye kadar hepsini kendisi
+yapar. Aşağıdaki bölümler elle yapmak isteyenler içindir.
+
 ## Kurulum
 
 `components.json`'a registry'yi **bir kere** tanımlayın — `{name}` yer
