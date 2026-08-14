@@ -17,6 +17,11 @@ Hedef projenizde şunlar kurulu olmalı:
 - Tailwind CSS v4
 - [`tw-animate-css`](https://www.npmjs.com/package/tw-animate-css)
 - Bir shadcn `components.json` (yoksa `pnpm dlx shadcn@latest init` ile kurun)
+- **Vite projelerinde:** `@/*` alias'ı kök `tsconfig.json`'da da tanımlı olmalı
+  (`baseUrl` + `paths`) — sadece `tsconfig.app.json`'da olması yetmez, shadcn
+  CLI alias'ı kök dosyadan okur. Eksikse kurulum dosyaları `src/` yerine
+  literal bir `@/` klasörüne düşer. Bkz.
+  [shadcn Vite kurulum dokümanı](https://ui.shadcn.com/docs/installation/vite).
 
 ## Kurulum
 

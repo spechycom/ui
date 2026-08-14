@@ -16,6 +16,10 @@ bu adım stil ve alias sorularını interaktif sorar, atlanamaz.
 
 **Bitti sayılır:** `components.json` dosyası proje kökünde mevcut.
 
+Vite projesiyse kök `tsconfig.json`'da `@/*` alias'ı (`baseUrl` + `paths`)
+tanımlı mı kontrol et — sadece `tsconfig.app.json`'da olması shadcn CLI için
+yetmez, dosyalar `src/` yerine literal bir `@/` klasörüne düşer. Yoksa ekle.
+
 ## 2. `@spechy` registry'sini tanımla
 
 `components.json`'ı oku. `registries.@spechy` yoksa ekle:
