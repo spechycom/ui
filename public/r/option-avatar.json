@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "option-avatar",
+  "title": "option-avatar",
+  "dependencies": [],
+  "registryDependencies": [
+    "avatar",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/spechy/ui/option-avatar.tsx",
+      "content": "import { initials } from '@/lib/utils'\nimport { Avatar, AvatarFallback } from '@/components/ui/avatar'\n\n/**\n * Çoklu seçim chip'lerinde/dropdown satırlarında kullanıcı/ekip seçeneği\n * için baş harf rozeti — `AsyncMultiSelect`, settings `MultiSelect` ve\n * filter-panel `MultiComboboxField`'ın üçünde de aynı görsel (Rule of\n * Three, CLAUDE.md § Temel prensipler — üçü de aynı `Avatar`+`initials`\n * bloğunu ayrı ayrı yazıyordu). Kalıcı proje kararı: multiselect seçenekleri\n * kullanıcı/ekip ise bu, kanal ise `option.icon`/`getChannelIcon` zorunlu.\n */\nexport function OptionAvatar({ label }: { label: string }) {\n  return (\n    // aria-hidden: baş harfleri label'ın kendisinin tekrarı — erişilebilir\n    // isme (ör. CommandItem'ın role=\"option\" adına) sızıp \"AY Ayşe Yılmaz\"\n    // gibi bir çiftlemeye yol açmasın.\n    <Avatar aria-hidden size=\"sm\">\n      <AvatarFallback className=\"bg-primary text-[10px] text-primary-foreground\">\n        {initials(label)}\n      </AvatarFallback>\n    </Avatar>\n  )\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

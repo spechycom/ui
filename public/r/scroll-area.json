@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "title": "scroll-area",
+  "dependencies": [
+    "radix-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/spechy/ui/scroll-area.tsx",
+      "content": "import { ScrollArea as ScrollAreaPrimitive } from 'radix-ui'\nimport type * as React from 'react'\n\nimport { cn } from '@/lib/utils'\n\nfunction ScrollArea({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {\n  return (\n    <ScrollAreaPrimitive.Root\n      data-slot=\"scroll-area\"\n      className={cn('relative overflow-hidden', className)}\n      {...props}\n    >\n      <ScrollAreaPrimitive.Viewport\n        data-slot=\"scroll-area-viewport\"\n        // Radix, çocuğu `display:table; min-width:100%` inline style'lı bir\n        // div'e sarıyor — auto table-layout, içindeki metin (truncate/nowrap)\n        // taşana kadar genişliği içeriğe göre büyütüyor, bu da kırpma yerine\n        // yatay taşmaya yol açıyor. Inline style'ı ezmek için `!` gerekiyor.\n        className=\"size-full rounded-[inherit] outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:ring-ring/50 [&>div]:!block\"\n      >\n        {children}\n      </ScrollAreaPrimitive.Viewport>\n      <ScrollBar />\n      <ScrollAreaPrimitive.Corner />\n    </ScrollAreaPrimitive.Root>\n  )\n}\n\nfunction ScrollBar({\n  className,\n  orientation = 'vertical',\n  ...props\n}: React.ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>) {\n  return (\n    <ScrollAreaPrimitive.Scrollbar\n      data-slot=\"scroll-area-scrollbar\"\n      orientation={orientation}\n      className={cn(\n        'flex touch-none select-none p-px transition-colors',\n        orientation === 'vertical' && 'h-full w-2.5 border-l border-l-transparent',\n        orientation === 'horizontal' && 'h-2.5 flex-col border-t border-t-transparent',\n        className,\n      )}\n      {...props}\n    >\n      <ScrollAreaPrimitive.Thumb\n        data-slot=\"scroll-area-thumb\"\n        className=\"relative flex-1 rounded-full bg-border\"\n      />\n    </ScrollAreaPrimitive.Scrollbar>\n  )\n}\n\nexport { ScrollArea, ScrollBar }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

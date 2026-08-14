@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "spinner",
+  "dependencies": [
+    "@tabler/icons-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/spechy/ui/spinner.tsx",
+      "content": "import { IconLoader2 } from '@tabler/icons-react'\n\nimport { cn } from '@/lib/utils'\n\nfunction Spinner({ className, ...props }: React.ComponentProps<typeof IconLoader2>) {\n  return (\n    <IconLoader2\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn('size-4 animate-spin', className)}\n      {...props}\n    />\n  )\n}\n\nexport { Spinner }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
