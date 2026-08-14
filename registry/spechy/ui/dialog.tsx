@@ -41,9 +41,12 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  closeLabel = 'Close',
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
+  /** Sağ üstteki X butonunun sr-only etiketi. Projenizde i18n varsa t('...') ile geçin. */
+  closeLabel?: string
 }) {
   return (
     <DialogPortal data-slot="dialog-portal">
@@ -63,7 +66,7 @@ function DialogContent({
             className="absolute top-4 right-4 rounded-xs opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4.5"
           >
             <IconX />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{closeLabel}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>
@@ -84,10 +87,13 @@ function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
 function DialogFooter({
   className,
   showCloseButton = false,
+  closeLabel = 'Close',
   children,
   ...props
 }: React.ComponentProps<'div'> & {
   showCloseButton?: boolean
+  /** `showCloseButton` açıkken buton metni. Projenizde i18n varsa t('...') ile geçin. */
+  closeLabel?: string
 }) {
   return (
     <div
@@ -98,7 +104,7 @@ function DialogFooter({
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close asChild>
-          <Button variant="outline">Close</Button>
+          <Button variant="outline">{closeLabel}</Button>
         </DialogPrimitive.Close>
       )}
     </div>

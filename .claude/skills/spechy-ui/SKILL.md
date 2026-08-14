@@ -67,9 +67,12 @@ npx shadcn@latest add @spechy/spechy-ui-all
 **Bitti sayılır:** komut sıfır çıkış koduyla bitti, istenen bileşen
 dosyaları projenin ui alias dizininde oluştu.
 
-## 5. `password-input` kurulduysa i18n'e bağla (opsiyonel)
+## 5. Metin prop'larını i18n'e bağla (opsiyonel)
 
-Bileşenin sabit bir i18n bağımlılığı yok; `showLabel`/`hideLabel` prop'ları
-varsayılan İngilizce string taşır. Projede i18n kuruluysa, bileşeni kullanan
-yerlerde `<PasswordInput showLabel={t('password.show')} hideLabel={t('password.hide')} />`
-gibi kendi çevirini geç. Kurulu değilse bu adımı atla, varsayılanlar kalır.
+Hiçbir bileşen sabit bir i18n kütüphanesi/anahtarı zorlamaz; kullanıcıya
+görünen metinler varsayılan İngilizce string'li prop'lardır:
+`PasswordInput`'ta `showLabel`/`hideLabel`, `DialogContent`/`SheetContent`'te
+`closeLabel`, `DialogFooter`'da `closeLabel`. Projede i18n kuruluysa bu
+bileşenleri kullanan yerlerde kendi çevirini geç (ör.
+`<PasswordInput showLabel={t('password.show')} hideLabel={t('password.hide')} />`).
+Kurulu değilse bu adımı atla, varsayılanlar kalır.

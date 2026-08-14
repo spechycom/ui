@@ -45,8 +45,9 @@ TODO:
       ```
       Böylece ileride `/spechy-ui [bileşen-adı ...]` ile bileşen ekleyip
       güncelleyebilirsin. Claude Code değilse bu adımı atla.
-- [ ] `password-input` kurulduysa ve projede i18n varsa: bileşeni kullanan
-      yerlerde `showLabel`/`hideLabel` prop'larına kendi çevirini geç
+- [ ] Projede i18n varsa: `PasswordInput` (`showLabel`/`hideLabel`),
+      `DialogContent`/`SheetContent`/`DialogFooter` (`closeLabel`)
+      kurulduysa bu bileşenleri kullanan yerlerde kendi çevirini geç
       (`<PasswordInput showLabel={t('password.show')} hideLabel={t('password.hide')} />`).
       i18n yoksa atla, varsayılan İngilizce string'ler kalır.
 
