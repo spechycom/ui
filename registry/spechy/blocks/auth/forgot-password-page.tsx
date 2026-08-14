@@ -1,6 +1,8 @@
 import { IconArrowLeft } from '@tabler/icons-react'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+
 import { AuthLayout } from './auth-layout'
 
 export function ForgotPasswordPage() {

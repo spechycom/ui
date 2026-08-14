@@ -1,9 +1,14 @@
 import { IconArrowLeft } from '@tabler/icons-react'
+import { useState } from 'react'
+
 import { Button } from '@/components/ui/button'
 import { OtpInput } from '@/components/ui/otp-input'
+
 import { AuthLayout } from './auth-layout'
 
 export function VerifyCodePage() {
+  const [code, setCode] = useState('')
+
   return (
     <AuthLayout
       heading="Verify your email"
@@ -23,13 +28,7 @@ export function VerifyCodePage() {
         </p>
       </div>
       <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
-        <OtpInput
-          id="code"
-          value=""
-          onChange={() => {
-            // ponytail: görsel şablon, gerçek durum yönetimi tüketici projede eklenir
-          }}
-        />
+        <OtpInput id="code" value={code} onChange={setCode} />
         <Button type="submit" size="xl" className="w-full font-semibold text-base">
           Verify
         </Button>

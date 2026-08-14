@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { PasswordInput } from '@/components/ui/password-input'
+
 import { AuthLayout } from './auth-layout'
 
 export function ResetPasswordPage() {
