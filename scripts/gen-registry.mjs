@@ -1,8 +1,9 @@
 // ponytar: elle 37 registry item yazmak yerine importlardan otomatik üretim.
 // Yeni bileşen eklerken bu script tekrar çalıştırılır, çıktı gözden geçirilir.
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 
 const DIR = new URL('../registry/spechy/ui/', import.meta.url)
+const BLOCKS_DIR = new URL('../registry/spechy/blocks/', import.meta.url)
 const NPM_DEP_MAP = {
   'radix-ui': 'radix-ui',
   '@tabler/icons-react': '@tabler/icons-react',
@@ -13,15 +14,10 @@ const NPM_DEP_MAP = {
   'react-day-picker': 'react-day-picker',
 }
 
-const files = readdirSync(DIR).filter((f) => f.endsWith('.tsx'))
-const items = []
-
-for (const file of files) {
-  const name = file.replace(/\.tsx$/, '')
-  const src = readFileSync(new URL(file, DIR), 'utf8')
-  const deps = new Set()
-  const registryDeps = new Set()
-
+// Bir dosyanın import'larından dependencies/registryDependencies çıkarır.
+// `deps`/`registryDeps` çağıran tarafından verilir — birden fazla dosya
+// (ör. bir block klasöründeki tüm dosyalar) aynı Set'e biriktirebilir.
+function collectImports(src, { deps, registryDeps, name }) {
   for (const m of src.matchAll(/from ['"]([^'"]+)['"]/g)) {
     const spec = m[1]
     if (spec === 'react' || spec === 'react/jsx-runtime') continue
@@ -35,7 +31,18 @@ for (const file of files) {
       console.warn(`[${name}] eşlenmemiş import: ${spec} — registry.json'a elle eklenmeli`)
     }
   }
+}
 
+const files = readdirSync(DIR).filter((f) => f.endsWith('.tsx'))
+const items = []
+
+for (const file of files) {
+  const name = file.replace(/\.tsx$/, '')
+  const src = readFileSync(new URL(file, DIR), 'utf8')
+  const deps = new Set()
+  const registryDeps = new Set()
+
+  collectImports(src, { deps, registryDeps, name })
   registryDeps.delete(`@spechy/${name}`) // kendine referans olmasın (barrel export tarama hatası)
 
   items.push({
@@ -49,6 +56,48 @@ for (const file of files) {
 }
 
 items.sort((a, b) => a.name.localeCompare(b.name))
+
+// registry/spechy/blocks/<klasör>/ → tek bir registry:block item.
+// Klasör yoksa (henüz block eklenmemiş) sessizce sıfır item üretir.
+const blockItems = []
+const blockDirNames = existsSync(BLOCKS_DIR)
+  ? readdirSync(BLOCKS_DIR, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
+  : []
+
+for (const name of blockDirNames) {
+  const blockDir = new URL(`${name}/`, BLOCKS_DIR)
+  const blockFiles = readdirSync(blockDir, { withFileTypes: true })
+    .filter((d) => d.isFile() && !d.name.startsWith('.')) // .DS_Store vb. dosya sistemi çöpünü atla
+    .map((d) => d.name)
+    .sort()
+  if (blockFiles.length === 0) continue // henüz dosya eklenmemiş klasör — item üretme
+
+  const deps = new Set()
+  const registryDeps = new Set()
+
+  for (const file of blockFiles) {
+    const src = readFileSync(new URL(file, blockDir), 'utf8')
+    collectImports(src, { deps, registryDeps, name })
+  }
+  registryDeps.delete(`@spechy/${name}`) // kendine referans olmasın (ui loop'uyla aynı guard)
+
+  blockItems.push({
+    name,
+    type: 'registry:block',
+    title: name,
+    dependencies: [...deps].sort(),
+    registryDependencies: [...registryDeps].sort(),
+    files: blockFiles.map((file) => ({
+      path: `registry/spechy/blocks/${name}/${file}`,
+      type: 'registry:block',
+      target: `~/blocks/${name}/${file}`,
+    })),
+  })
+}
+
+blockItems.sort((a, b) => a.name.localeCompare(b.name))
 
 const registry = {
   $schema: 'https://ui.shadcn.com/schema/registry.json',
@@ -78,6 +127,7 @@ const registry = {
       ],
     },
     ...items,
+    ...blockItems,
     {
       name: 'spechy-ui-all',
       type: 'registry:block',
@@ -90,4 +140,4 @@ const registry = {
 }
 
 writeFileSync(new URL('../registry.json', import.meta.url), `${JSON.stringify(registry, null, 2)}\n`)
-console.log(`${items.length} bileşen + utils + bundle → registry.json yazıldı`)
+console.log(`${items.length} bileşen + ${blockItems.length} block + utils + bundle → registry.json yazıldı`)
