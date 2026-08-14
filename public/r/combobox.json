@@ -6,10 +6,10 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "button",
-    "command",
-    "popover",
-    "utils"
+    "@spechy/button",
+    "@spechy/command",
+    "@spechy/popover",
+    "@spechy/utils"
   ],
   "files": [
     {

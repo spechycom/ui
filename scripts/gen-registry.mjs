@@ -27,9 +27,9 @@ for (const file of files) {
     const spec = m[1]
     if (spec === 'react' || spec === 'react/jsx-runtime') continue
     if (spec === '@/lib/utils') {
-      registryDeps.add('utils')
+      registryDeps.add('@spechy/utils')
     } else if (spec.startsWith('@/components/ui/')) {
-      registryDeps.add(spec.replace('@/components/ui/', ''))
+      registryDeps.add(`@spechy/${spec.replace('@/components/ui/', '')}`)
     } else if (NPM_DEP_MAP[spec]) {
       deps.add(NPM_DEP_MAP[spec])
     } else if (!spec.startsWith('.')) {
@@ -37,7 +37,7 @@ for (const file of files) {
     }
   }
 
-  registryDeps.delete(name) // kendine referans olmasın (barrel export tarama hatası)
+  registryDeps.delete(`@spechy/${name}`) // kendine referans olmasın (barrel export tarama hatası)
 
   items.push({
     name,
@@ -84,7 +84,7 @@ const registry = {
       type: 'registry:block',
       title: 'Tüm Spechy UI bileşenleri',
       description: 'Tek komutla tüm bileşenleri + tema dosyasını kurar.',
-      registryDependencies: ['theme', ...items.map((i) => i.name)],
+      registryDependencies: ['@spechy/theme', ...items.map((i) => `@spechy/${i.name}`)],
       files: [],
     },
   ],

@@ -4,7 +4,7 @@
   "title": "skeleton",
   "dependencies": [],
   "registryDependencies": [
-    "utils"
+    "@spechy/utils"
   ],
   "files": [
     {

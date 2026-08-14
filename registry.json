@@ -42,7 +42,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -59,8 +59,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "button",
-        "utils"
+        "@spechy/button",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -77,7 +77,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -95,7 +95,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -113,7 +113,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -131,8 +131,8 @@
         "react-day-picker"
       ],
       "registryDependencies": [
-        "button",
-        "utils"
+        "@spechy/button",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -149,7 +149,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -167,7 +167,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -199,10 +199,10 @@
         "@tabler/icons-react"
       ],
       "registryDependencies": [
-        "button",
-        "command",
-        "popover",
-        "utils"
+        "@spechy/button",
+        "@spechy/command",
+        "@spechy/popover",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -220,8 +220,8 @@
         "cmdk"
       ],
       "registryDependencies": [
-        "dialog",
-        "utils"
+        "@spechy/dialog",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -239,11 +239,11 @@
         "date-fns"
       ],
       "registryDependencies": [
-        "button",
-        "calendar",
-        "label",
-        "popover",
-        "utils"
+        "@spechy/button",
+        "@spechy/calendar",
+        "@spechy/label",
+        "@spechy/popover",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -261,10 +261,10 @@
         "date-fns"
       ],
       "registryDependencies": [
-        "button",
-        "calendar",
-        "popover",
-        "utils"
+        "@spechy/button",
+        "@spechy/calendar",
+        "@spechy/popover",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -282,8 +282,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "button",
-        "utils"
+        "@spechy/button",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -301,7 +301,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -318,9 +318,9 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "label",
-        "separator",
-        "utils"
+        "@spechy/label",
+        "@spechy/separator",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -335,7 +335,7 @@
       "title": "input",
       "dependencies": [],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -352,7 +352,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -367,8 +367,8 @@
       "title": "option-avatar",
       "dependencies": [],
       "registryDependencies": [
-        "avatar",
-        "utils"
+        "@spechy/avatar",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -383,7 +383,7 @@
       "title": "otp-input",
       "dependencies": [],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -401,8 +401,8 @@
         "react-i18next"
       ],
       "registryDependencies": [
-        "input",
-        "utils"
+        "@spechy/input",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -419,7 +419,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -437,7 +437,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -454,7 +454,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -472,7 +472,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -489,7 +489,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -507,7 +507,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -522,7 +522,7 @@
       "title": "skeleton",
       "dependencies": [],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -539,7 +539,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -556,7 +556,7 @@
         "@tabler/icons-react"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -573,7 +573,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -588,7 +588,7 @@
       "title": "table",
       "dependencies": [],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -606,7 +606,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -621,7 +621,7 @@
       "title": "textarea",
       "dependencies": [],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -639,7 +639,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -657,8 +657,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "toggle",
-        "utils"
+        "@spechy/toggle",
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -675,7 +675,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "utils"
+        "@spechy/utils"
       ],
       "files": [
         {
@@ -690,44 +690,44 @@
       "title": "Tüm Spechy UI bileşenleri",
       "description": "Tek komutla tüm bileşenleri + tema dosyasını kurar.",
       "registryDependencies": [
-        "theme",
-        "alert",
-        "alert-dialog",
-        "avatar",
-        "badge",
-        "button",
-        "calendar",
-        "card",
-        "checkbox",
-        "collapsible",
-        "combobox",
-        "command",
-        "date-range-picker",
-        "date-time-picker",
-        "dialog",
-        "dropdown-menu",
-        "field",
-        "input",
-        "label",
-        "option-avatar",
-        "otp-input",
-        "password-input",
-        "popover",
-        "radio-group",
-        "scroll-area",
-        "select",
-        "separator",
-        "sheet",
-        "skeleton",
-        "slider",
-        "spinner",
-        "switch",
-        "table",
-        "tabs",
-        "textarea",
-        "toggle",
-        "toggle-group",
-        "tooltip"
+        "@spechy/theme",
+        "@spechy/alert",
+        "@spechy/alert-dialog",
+        "@spechy/avatar",
+        "@spechy/badge",
+        "@spechy/button",
+        "@spechy/calendar",
+        "@spechy/card",
+        "@spechy/checkbox",
+        "@spechy/collapsible",
+        "@spechy/combobox",
+        "@spechy/command",
+        "@spechy/date-range-picker",
+        "@spechy/date-time-picker",
+        "@spechy/dialog",
+        "@spechy/dropdown-menu",
+        "@spechy/field",
+        "@spechy/input",
+        "@spechy/label",
+        "@spechy/option-avatar",
+        "@spechy/otp-input",
+        "@spechy/password-input",
+        "@spechy/popover",
+        "@spechy/radio-group",
+        "@spechy/scroll-area",
+        "@spechy/select",
+        "@spechy/separator",
+        "@spechy/sheet",
+        "@spechy/skeleton",
+        "@spechy/slider",
+        "@spechy/spinner",
+        "@spechy/switch",
+        "@spechy/table",
+        "@spechy/tabs",
+        "@spechy/textarea",
+        "@spechy/toggle",
+        "@spechy/toggle-group",
+        "@spechy/tooltip"
       ],
       "files": []
     }

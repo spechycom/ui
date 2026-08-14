@@ -7,8 +7,8 @@
     "cmdk"
   ],
   "registryDependencies": [
-    "dialog",
-    "utils"
+    "@spechy/dialog",
+    "@spechy/utils"
   ],
   "files": [
     {

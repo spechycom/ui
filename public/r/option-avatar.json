@@ -4,8 +4,8 @@
   "title": "option-avatar",
   "dependencies": [],
   "registryDependencies": [
-    "avatar",
-    "utils"
+    "@spechy/avatar",
+    "@spechy/utils"
   ],
   "files": [
     {

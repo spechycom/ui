@@ -7,10 +7,10 @@
     "date-fns"
   ],
   "registryDependencies": [
-    "button",
-    "calendar",
-    "popover",
-    "utils"
+    "@spechy/button",
+    "@spechy/calendar",
+    "@spechy/popover",
+    "@spechy/utils"
   ],
   "files": [
     {

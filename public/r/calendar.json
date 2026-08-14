@@ -7,8 +7,8 @@
     "react-day-picker"
   ],
   "registryDependencies": [
-    "button",
-    "utils"
+    "@spechy/button",
+    "@spechy/utils"
   ],
   "files": [
     {

@@ -7,8 +7,8 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "toggle",
-    "utils"
+    "@spechy/toggle",
+    "@spechy/utils"
   ],
   "files": [
     {

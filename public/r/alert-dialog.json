@@ -6,8 +6,8 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "button",
-    "utils"
+    "@spechy/button",
+    "@spechy/utils"
   ],
   "files": [
     {

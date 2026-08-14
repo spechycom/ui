@@ -4,7 +4,7 @@
   "title": "otp-input",
   "dependencies": [],
   "registryDependencies": [
-    "utils"
+    "@spechy/utils"
   ],
   "files": [
     {

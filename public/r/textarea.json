@@ -4,7 +4,7 @@
   "title": "textarea",
   "dependencies": [],
   "registryDependencies": [
-    "utils"
+    "@spechy/utils"
   ],
   "files": [
     {

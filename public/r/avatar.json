@@ -6,7 +6,7 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "utils"
+    "@spechy/utils"
   ],
   "files": [
     {

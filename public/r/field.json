@@ -6,9 +6,9 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "label",
-    "separator",
-    "utils"
+    "@spechy/label",
+    "@spechy/separator",
+    "@spechy/utils"
   ],
   "files": [
     {
