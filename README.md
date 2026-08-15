@@ -94,18 +94,22 @@ Tek komutla kurulur, dosyalar `src/blocks/<blok-adı>/` altına iner:
 
 ```bash
 npx shadcn@latest add @spechy/auth        # login, register, forgot/reset/verify sayfaları
+npx shadcn@latest add @spechy/dashboard   # app layout: sidebar, header, footer
 ```
 
 | Blok | İçerik |
 | --- | --- |
 | `auth` | `auth-layout`, `login-page`, `register-page`, `forgot-password-page`, `reset-password-page`, `verify-code-page`, `social-icons` |
+| `dashboard` | `app-layout`, `app-header`, `app-header-tools`, `app-header-search`, `app-header-notifications`, `app-sidebar`, `app-sidebar-nav`, `app-profile-menu`, `app-footer` |
 
 ![Spechy UI auth bloğuyla kurulmuş örnek bir login sayfası](./docs/auth-showcase.png)
 
 Sayfa içi linkler düz `<a href>` kullanır — kendi router'ınıza bağlamak size
-kalır. Yeni bir blok eklemek için `registry/spechy/blocks/<ad>/` altına
-dosyaları koyup `node scripts/gen-registry.mjs` çalıştırmak yeterli, script
-klasörü otomatik algılar.
+kalır. `dashboard` bloğunda `<AppLayout>` sayfa içeriğini `children` olarak
+alır; aktif nav linki, sayfa geçişi gibi routing detayları da size kalır.
+Yeni bir blok eklemek için `registry/spechy/blocks/<ad>/` altına dosyaları
+koyup `node scripts/gen-registry.mjs` çalıştırmak yeterli, script klasörü
+otomatik algılar.
 
 ## Bilinmesi gerekenler
 

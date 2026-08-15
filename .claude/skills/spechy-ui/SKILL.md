@@ -1,6 +1,6 @@
 ---
 name: spechy-ui
-description: Bu projeye Spechy'nin özelleştirilmiş shadcn UI bileşenlerini ve sayfa bloklarını (auth) kurar veya günceller. Argüman olarak bileşen/blok adları alır (ör. "button dialog" ya da "auth"); boş bırakılırsa tüm bileşenler kurulur.
+description: Bu projeye Spechy'nin özelleştirilmiş shadcn UI bileşenlerini ve sayfa bloklarını (auth, dashboard) kurar veya günceller. Argüman olarak bileşen/blok adları alır (ör. "button dialog" ya da "auth"); boş bırakılırsa tüm bileşenler kurulur.
 disable-model-invocation: true
 argument-hint: [bileşen-adı ... | blok-adı]
 allowed-tools: Bash, Read, Edit, Write
@@ -87,6 +87,7 @@ kurulum sonrası şaşırmamak için önemli.
 
 ```bash
 npx shadcn@latest add @spechy/auth
+npx shadcn@latest add @spechy/dashboard
 ```
 
 Dosyalar bileşenlerden farklı bir yere, `src/blocks/<blok-adı>/` altına

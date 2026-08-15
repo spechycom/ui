@@ -38,6 +38,32 @@ Sayfa içi linkler (`/login`, `/register`, `/forgot-password` ...) düz
 size kalır, ADR-0023 tipi "iç navigasyon `<Link>` olmalı" kuralları burada
 **geçerli değildir**, çünkü blok router-agnostik tasarlanmıştır.
 
+## `dashboard`
+
+| Dosya | İçerik |
+| --- | --- |
+| `app-layout.tsx` | Grid shell — masaüstünde sabit sidebar + header/main/footer sütunu, mobilde `Sheet` içinde sidebar; kökte `TooltipProvider` sarmalar, `children` `<main>` içine düşer |
+| `app-header.tsx` | Header kabuğu — solda `QuickActions` (konuşma/takvim/inbox/bilgi bankası ikon butonları + "Quick add" dropdown'ı), sağda `HeaderTools` |
+| `app-header-tools.tsx` | `UserStatusControl` (online/busy/away/offline seçici) ve `AppsGridPopover` (uygulama kısayolları ızgarası) |
+| `app-header-search.tsx` | `GlobalSearchTrigger` + ⌘K/Ctrl+K ile açılan `Command`-tabanlı arama paleti |
+| `app-header-notifications.tsx` | Bildirim `Popover`'ı — okundu/okunmadı durumu, "tümünü okundu işaretle" |
+| `app-sidebar.tsx` | Sabitlenebilir (`pinned`) veya hover ile genişleyen icon-rail sidebar, workspace seçici dropdown'ı |
+| `app-sidebar-nav.tsx` | Nav ağacı — tekil link ve alt-menülü grup öğeleri, daralmış modda tooltip'e düşer |
+| `app-profile-menu.tsx` | Sidebar altına sabitlenen hesap menüsü — tema (light/dark/system) ve dil alt-menüleri, çıkış |
+| `app-footer.tsx` | İnce durum çubuğu — sürüm/commit, kullanıcı/şirket id, bağlantı durumu, canlı saat |
+
+`registryDependencies`: `avatar`, `badge`, `button`, `command`, `dropdown-menu`,
+`popover`, `scroll-area`, `separator`, `sheet`, `tooltip`, `utils`.
+`dependencies`: `@tabler/icons-react`.
+
+`<AppLayout>` sayfa içeriğini `children` olarak alır — aktif nav linki
+işaretleme, sayfa geçişi, gerçek auth/tema/bildirim durumu gibi her şey
+kendi router/store'unuza bağlamanız gereken yerlerdir; blokta hepsi yerel
+`useState` mock'larıdır. Sidebar'ın collapse mantığı `pinned` prop'una,
+hover state'ine ve açık bir dropdown olup olmadığına bakar — bir dropdown
+açıkken sidebar'ın daralmaması için `onPinnedChange`/dropdown `onOpenChange`
+callback'leri birbirine bağlıdır, bunu bozmadan özelleştirin.
+
 ## Yeni blok eklerken
 
 `registry/spechy/blocks/<yeni-blok>/` altına dosyaları koyup

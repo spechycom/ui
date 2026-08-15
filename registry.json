@@ -737,6 +737,74 @@
       ]
     },
     {
+      "name": "dashboard",
+      "type": "registry:block",
+      "title": "dashboard",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@spechy/avatar",
+        "@spechy/badge",
+        "@spechy/button",
+        "@spechy/command",
+        "@spechy/dropdown-menu",
+        "@spechy/popover",
+        "@spechy/scroll-area",
+        "@spechy/separator",
+        "@spechy/sheet",
+        "@spechy/tooltip",
+        "@spechy/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/spechy/blocks/dashboard/app-footer.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-footer.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-header-notifications.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-header-notifications.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-header-search.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-header-search.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-header-tools.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-header-tools.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-header.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-header.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-layout.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-layout.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-profile-menu.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-profile-menu.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-sidebar-nav.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-sidebar-nav.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-sidebar.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-sidebar.tsx"
+        }
+      ]
+    },
+    {
       "name": "spechy-ui-all",
       "type": "registry:block",
       "title": "Tüm Spechy UI bileşenleri",

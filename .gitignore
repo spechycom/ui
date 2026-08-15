@@ -3,3 +3,6 @@ docs/superpowers/
 
 # Git worktree'ler — yerel kalır, repoya gitmez
 .worktrees/
+
+# Dashboard block test ortamı — yerel kalır, repoya gitmez
+playground/
