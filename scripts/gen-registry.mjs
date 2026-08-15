@@ -25,6 +25,8 @@ function collectImports(src, { deps, registryDeps, name }) {
       registryDeps.add('@spechy/utils')
     } else if (spec.startsWith('@/components/ui/')) {
       registryDeps.add(`@spechy/${spec.replace('@/components/ui/', '')}`)
+    } else if (spec.startsWith('@/hooks/')) {
+      registryDeps.add(`@spechy/${spec.replace('@/hooks/', '')}`)
     } else if (NPM_DEP_MAP[spec]) {
       deps.add(NPM_DEP_MAP[spec])
     } else if (!spec.startsWith('.')) {
@@ -110,6 +112,20 @@ const registry = {
       title: 'utils',
       dependencies: ['clsx', 'tailwind-merge'],
       files: [{ path: 'registry/spechy/lib/utils.ts', type: 'registry:lib' }],
+    },
+    {
+      name: 'use-theme',
+      type: 'registry:hook',
+      title: 'use-theme',
+      description:
+        'ThemeProvider + useTheme() — light/dark/system tema seçimini localStorage’a yazar, <html>’e `dark` class’ını uygular, "system" seçiliyken işletim sistemi tercihini dinler.',
+      files: [
+        {
+          path: 'registry/spechy/hooks/use-theme.tsx',
+          type: 'registry:hook',
+          target: '~/hooks/use-theme.tsx',
+        },
+      ],
     },
     {
       name: 'theme',

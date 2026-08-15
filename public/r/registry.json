@@ -19,6 +19,19 @@
       ]
     },
     {
+      "name": "use-theme",
+      "type": "registry:hook",
+      "title": "use-theme",
+      "description": "ThemeProvider + useTheme() — light/dark/system tema seçimini localStorage’a yazar, <html>’e `dark` class’ını uygular, \"system\" seçiliyken işletim sistemi tercihini dinler.",
+      "files": [
+        {
+          "path": "registry/spechy/hooks/use-theme.tsx",
+          "type": "registry:hook",
+          "target": "~/hooks/use-theme.tsx"
+        }
+      ]
+    },
+    {
       "name": "theme",
       "type": "registry:file",
       "title": "Spechy tasarım token’ları",
@@ -754,6 +767,7 @@
         "@spechy/separator",
         "@spechy/sheet",
         "@spechy/tooltip",
+        "@spechy/use-theme",
         "@spechy/utils"
       ],
       "files": [

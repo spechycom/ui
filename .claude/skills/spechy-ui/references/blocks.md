@@ -53,16 +53,23 @@ size kalır, ADR-0023 tipi "iç navigasyon `<Link>` olmalı" kuralları burada
 | `app-footer.tsx` | İnce durum çubuğu — sürüm/commit, kullanıcı/şirket id, bağlantı durumu, canlı saat |
 
 `registryDependencies`: `avatar`, `badge`, `button`, `command`, `dropdown-menu`,
-`popover`, `scroll-area`, `separator`, `sheet`, `tooltip`, `utils`.
+`popover`, `scroll-area`, `separator`, `sheet`, `tooltip`, `use-theme`, `utils`.
 `dependencies`: `@tabler/icons-react`.
 
 `<AppLayout>` sayfa içeriğini `children` olarak alır — aktif nav linki
-işaretleme, sayfa geçişi, gerçek auth/tema/bildirim durumu gibi her şey
-kendi router/store'unuza bağlamanız gereken yerlerdir; blokta hepsi yerel
-`useState` mock'larıdır. Sidebar'ın collapse mantığı `pinned` prop'una,
-hover state'ine ve açık bir dropdown olup olmadığına bakar — bir dropdown
-açıkken sidebar'ın daralmaması için `onPinnedChange`/dropdown `onOpenChange`
-callback'leri birbirine bağlıdır, bunu bozmadan özelleştirin.
+işaretleme, sayfa geçişi, gerçek auth/bildirim durumu gibi her şey kendi
+router/store'unuza bağlamanız gereken yerlerdir; bunlar blokta yerel
+`useState` mock'larıdır. **Tema seçici istisna**: profil menüsündeki
+light/dark/system seçimi mock değil, `use-theme` hook'unu (`ThemeProvider` +
+`useTheme()`) kullanır — `<html>`'e `dark` class'ını gerçekten uygular ve
+`localStorage`'a yazar, kurulum sonrası ekstra bağlama gerektirmeden çalışır.
+`ThemeProvider` `app-layout.tsx` içinde sarılıdır; dashboard dışında sayfalarınız
+da varsa (ör. `auth` bloğundaki login sayfası) ve orada da tema senkron
+olsun istiyorsanız `ThemeProvider`'ı `AppLayout`'tan çıkarıp app kökünüze
+taşıyın. Sidebar'ın collapse mantığı `pinned` prop'una, hover state'ine ve
+açık bir dropdown olup olmadığına bakar — bir dropdown açıkken sidebar'ın
+daralmaması için `onPinnedChange`/dropdown `onOpenChange` callback'leri
+birbirine bağlıdır, bunu bozmadan özelleştirin.
 
 ## Yeni blok eklerken
 

@@ -86,6 +86,18 @@ dropdown-menu, field, input, label, option-avatar, otp-input, password-input,
 popover, radio-group, scroll-area, select, separator, sheet, skeleton,
 slider, spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip
 
+## Hooks
+
+```bash
+npx shadcn@latest add @spechy/use-theme
+```
+
+`use-theme` bir `ThemeProvider` + `useTheme()` çifti sunar: light/dark/system
+seçimini `localStorage`'a yazar, `<html>`'e `dark` class'ını uygular ve
+"system" seçiliyken işletim sistemi tema tercihindeki değişiklikleri dinler.
+`dashboard` bloğu bunu zaten kurar kurulmaz kullanır (aşağıya bakın); tek
+başına da eklenip kendi layout'unuza sarılabilir.
+
 ## Bloklar
 
 Bloklar, gerçek sayfa tasarımlarının **sıfır iş mantığına sahip** kopyalarıdır
@@ -107,9 +119,11 @@ npx shadcn@latest add @spechy/dashboard   # app layout: sidebar, header, footer
 Sayfa içi linkler düz `<a href>` kullanır — kendi router'ınıza bağlamak size
 kalır. `dashboard` bloğunda `<AppLayout>` sayfa içeriğini `children` olarak
 alır; aktif nav linki, sayfa geçişi gibi routing detayları da size kalır.
-Yeni bir blok eklemek için `registry/spechy/blocks/<ad>/` altına dosyaları
-koyup `node scripts/gen-registry.mjs` çalıştırmak yeterli, script klasörü
-otomatik algılar.
+Profil menüsündeki tema seçici mock değil, `use-theme` hook'unu kullanır —
+dark mode kurulum sonrası gerçekten çalışır durumda gelir. Yeni bir blok
+eklemek için `registry/spechy/blocks/<ad>/` altına dosyaları koyup
+`node scripts/gen-registry.mjs` çalıştırmak yeterli, script klasörü otomatik
+algılar.
 
 ## Bilinmesi gerekenler
 

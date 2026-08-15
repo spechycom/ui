@@ -25,6 +25,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { type Theme, useTheme } from '@/hooks/use-theme'
 import { cn } from '@/lib/utils'
 
 const THEMES = [
@@ -52,7 +53,7 @@ type AppProfileMenuProps = {
 // açıkken sidebar'ın daralmasını engellemek için AppSidebar'a iletilir —
 // aksi halde açık dropdown, kapanan sidebar'ın altında görsel olarak kopar.
 export function ProfileMenu({ collapsed = false, onOpenChange = () => {} }: AppProfileMenuProps) {
-  const [theme, setTheme] = useState<(typeof THEMES)[number]['value']>('system')
+  const { theme, setTheme } = useTheme()
   const [locale, setLocale] = useState<(typeof LOCALES)[number]['value']>('en')
   const activeTheme = THEMES.find((option) => option.value === theme) ?? THEMES[2]
   const activeLocale = LOCALES.find((option) => option.value === locale) ?? LOCALES[0]
@@ -114,7 +115,7 @@ export function ProfileMenu({ collapsed = false, onOpenChange = () => {} }: AppP
             <DropdownMenuSubContent className="w-40 p-1.5">
               <DropdownMenuRadioGroup
                 value={theme}
-                onValueChange={(value) => setTheme(value as (typeof THEMES)[number]['value'])}
+                onValueChange={(value) => setTheme(value as Theme)}
               >
                 {THEMES.map((option) => {
                   const Icon = option.icon
