@@ -747,8 +747,11 @@
         "@spechy/avatar",
         "@spechy/badge",
         "@spechy/button",
+        "@spechy/collapsible",
         "@spechy/dropdown-menu",
         "@spechy/input",
+        "@spechy/popover",
+        "@spechy/separator",
         "@spechy/sheet",
         "@spechy/tooltip",
         "@spechy/utils"
@@ -768,6 +771,11 @@
           "path": "registry/spechy/blocks/dashboard/app-layout.tsx",
           "type": "registry:block",
           "target": "~/src/blocks/dashboard/app-layout.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-profile-menu.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-profile-menu.tsx"
         },
         {
           "path": "registry/spechy/blocks/dashboard/app-sidebar.tsx",

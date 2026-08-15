@@ -100,7 +100,7 @@ npx shadcn@latest add @spechy/dashboard   # sidebar + header + footer + layout s
 | Blok | İçerik |
 | --- | --- |
 | `auth` | `auth-layout`, `login-page`, `register-page`, `forgot-password-page`, `reset-password-page`, `verify-code-page`, `social-icons` |
-| `dashboard` | `app-layout`, `app-header`, `app-sidebar`, `app-footer` |
+| `dashboard` | `app-layout`, `app-header`, `app-sidebar`, `app-profile-menu`, `app-footer` |
 
 ![Spechy UI auth bloğuyla kurulmuş örnek bir login sayfası](./docs/auth-showcase.png)
 
