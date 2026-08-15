@@ -102,6 +102,8 @@ npx shadcn@latest add @spechy/dashboard   # sidebar + header + footer + layout s
 | `auth` | `auth-layout`, `login-page`, `register-page`, `forgot-password-page`, `reset-password-page`, `verify-code-page`, `social-icons` |
 | `dashboard` | `app-layout`, `app-header`, `app-sidebar`, `app-footer` |
 
+![Spechy UI auth bloğuyla kurulmuş örnek bir login sayfası](./docs/auth-showcase.png)
+
 Sayfa içi linkler düz `<a href>`, dashboard shell `Outlet` yerine `children`
 prop'u kullanır — kendi router'ınıza bağlamak size kalır. Yeni bir blok
 eklemek için `registry/spechy/blocks/<ad>/` altına dosyaları koyup
