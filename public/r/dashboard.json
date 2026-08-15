@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard",
+  "title": "dashboard",
+  "dependencies": [
+    "@tabler/icons-react"
+  ],
+  "registryDependencies": [
+    "@spechy/avatar",
+    "@spechy/badge",
+    "@spechy/button",
+    "@spechy/dropdown-menu",
+    "@spechy/input",
+    "@spechy/sheet",
+    "@spechy/tooltip",
+    "@spechy/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/spechy/blocks/dashboard/app-footer.tsx",
+      "content": "export function AppFooter() {\n  return (\n    <footer className=\"flex h-8 shrink-0 items-center border-t bg-card px-4\">\n      <p className=\"text-xs text-text-faint\">\n        © {new Date().getFullYear()} Your Company. All rights reserved.\n      </p>\n    </footer>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "~/src/blocks/dashboard/app-footer.tsx"
+    },
+    {
+      "path": "registry/spechy/blocks/dashboard/app-header.tsx",
+      "content": "'use client'\n\nimport {\n  IconBell,\n  IconLogout,\n  IconMenu2,\n  IconSearch,\n  IconSettings,\n  IconUser,\n} from '@tabler/icons-react'\n\nimport { Avatar, AvatarFallback } from '@/components/ui/avatar'\nimport { Badge } from '@/components/ui/badge'\nimport { Button } from '@/components/ui/button'\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from '@/components/ui/dropdown-menu'\nimport { Input } from '@/components/ui/input'\n\ntype AppHeaderProps = {\n  onOpenMobileMenu: () => void\n}\n\nexport function AppHeader({ onOpenMobileMenu }: AppHeaderProps) {\n  return (\n    <header className=\"flex h-[var(--control-xl)] items-center gap-3 border-b bg-card px-4\">\n      <Button\n        type=\"button\"\n        variant=\"ghost\"\n        size=\"icon\"\n        className=\"md:hidden\"\n        onClick={onOpenMobileMenu}\n      >\n        <IconMenu2 className=\"size-4.5\" />\n        <span className=\"sr-only\">Open menu</span>\n      </Button>\n\n      <div className=\"relative max-w-sm flex-1\">\n        <IconSearch className=\"pointer-events-none absolute inset-y-0 start-3 my-auto size-4 text-text-faint\" />\n        <Input type=\"search\" placeholder=\"Search...\" className=\"ps-9\" />\n      </div>\n\n      <div className=\"ms-auto flex items-center gap-2\">\n        <Button type=\"button\" variant=\"ghost\" size=\"icon\" className=\"relative\">\n          <IconBell className=\"size-4.5\" />\n          <Badge className=\"absolute -top-1 -end-1 h-4.5 min-w-4.5 justify-center px-1 text-[10px]\">\n            3\n          </Badge>\n          <span className=\"sr-only\">Notifications</span>\n        </Button>\n\n        <DropdownMenu>\n          <DropdownMenuTrigger className=\"rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50\">\n            <Avatar>\n              <AvatarFallback>JD</AvatarFallback>\n            </Avatar>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"end\">\n            <DropdownMenuItem>\n              <IconUser />\n              Profile\n            </DropdownMenuItem>\n            <DropdownMenuItem>\n              <IconSettings />\n              Settings\n            </DropdownMenuItem>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem>\n              <IconLogout />\n              Log out\n            </DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n      </div>\n    </header>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "~/src/blocks/dashboard/app-header.tsx"
+    },
+    {
+      "path": "registry/spechy/blocks/dashboard/app-layout.tsx",
+      "content": "'use client'\n\nimport { type ReactNode, useState } from 'react'\n\nimport { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet'\n\nimport { AppFooter } from './app-footer'\nimport { AppHeader } from './app-header'\nimport { AppSidebar } from './app-sidebar'\n\ntype AppLayoutProps = {\n  children: ReactNode\n}\n\nexport function AppLayout({ children }: AppLayoutProps) {\n  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)\n\n  return (\n    <div className=\"grid h-dvh grid-cols-1 overflow-hidden md:grid-cols-[auto_1fr]\">\n      <div className=\"hidden md:block\">\n        <AppSidebar />\n      </div>\n\n      <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>\n        <SheetContent side=\"left\" className=\"w-64 p-0\">\n          <SheetTitle className=\"sr-only\">Open menu</SheetTitle>\n          <AppSidebar />\n        </SheetContent>\n      </Sheet>\n\n      <div className=\"grid min-h-0 grid-rows-[auto_1fr_auto]\">\n        <AppHeader onOpenMobileMenu={() => setMobileMenuOpen(true)} />\n        <main className=\"min-h-0 overflow-y-auto p-6\">{children}</main>\n        <AppFooter />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "~/src/blocks/dashboard/app-layout.tsx"
+    },
+    {
+      "path": "registry/spechy/blocks/dashboard/app-sidebar.tsx",
+      "content": "'use client'\n\nimport {\n  type Icon,\n  IconChartBar,\n  IconChevronsLeft,\n  IconChevronsRight,\n  IconLayoutDashboard,\n  IconMessage,\n  IconSettings,\n  IconUsers,\n} from '@tabler/icons-react'\nimport { useState } from 'react'\n\nimport { Button } from '@/components/ui/button'\nimport { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'\nimport { cn } from '@/lib/utils'\n\ntype NavItem = {\n  label: string\n  icon: Icon\n}\n\nconst NAV_ITEMS: NavItem[] = [\n  { label: 'Dashboard', icon: IconLayoutDashboard },\n  { label: 'Contacts', icon: IconUsers },\n  { label: 'Messages', icon: IconMessage },\n  { label: 'Analytics', icon: IconChartBar },\n  { label: 'Settings', icon: IconSettings },\n]\n\nconst ACTIVE_LABEL = 'Dashboard'\n\nexport function AppSidebar() {\n  const [isCollapsed, setIsCollapsed] = useState(false)\n\n  return (\n    <div\n      className={cn(\n        'flex h-full flex-col border-e bg-card transition-[width]',\n        isCollapsed ? 'w-16' : 'w-64',\n      )}\n    >\n      <div className=\"flex h-[var(--control-xl)] items-center gap-2 border-b px-4\">\n        <div className=\"flex size-8 shrink-0 items-center justify-center rounded-control bg-primary text-sm font-semibold text-primary-foreground\">\n          D\n        </div>\n        {!isCollapsed && <span className=\"truncate text-sm font-semibold\">Dashboard</span>}\n      </div>\n\n      <nav className=\"flex-1 space-y-1 overflow-y-auto p-2\">\n        {NAV_ITEMS.map((item) => {\n          const isActive = item.label === ACTIVE_LABEL\n          const ItemIcon = item.icon\n\n          const buttonClassName = cn(\n            'flex w-full items-center gap-3 rounded-control px-3 py-2 text-sm font-medium transition-colors',\n            isCollapsed && 'justify-center px-0',\n            isActive\n              ? 'bg-primary text-primary-foreground'\n              : 'text-text-secondary hover:bg-accent hover:text-accent-foreground',\n          )\n          const buttonContent = (\n            <>\n              <ItemIcon className=\"size-4.5 shrink-0\" />\n              <span className={cn(isCollapsed && 'sr-only')}>{item.label}</span>\n            </>\n          )\n\n          if (!isCollapsed) {\n            return (\n              <button key={item.label} type=\"button\" className={buttonClassName}>\n                {buttonContent}\n              </button>\n            )\n          }\n\n          return (\n            <Tooltip key={item.label}>\n              <TooltipTrigger asChild>\n                <button type=\"button\" className={buttonClassName}>\n                  {buttonContent}\n                </button>\n              </TooltipTrigger>\n              <TooltipContent side=\"right\">{item.label}</TooltipContent>\n            </Tooltip>\n          )\n        })}\n      </nav>\n\n      <div className=\"border-t p-2\">\n        <Button\n          type=\"button\"\n          variant=\"ghost\"\n          className=\"h-[var(--control-md)] w-full justify-center\"\n          onClick={() => setIsCollapsed((prev) => !prev)}\n        >\n          {isCollapsed ? (\n            <IconChevronsRight className=\"size-4.5\" />\n          ) : (\n            <IconChevronsLeft className=\"size-4.5\" />\n          )}\n          <span className=\"sr-only\">{isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}</span>\n        </Button>\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "~/src/blocks/dashboard/app-sidebar.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

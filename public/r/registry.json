@@ -684,6 +684,99 @@
       ]
     },
     {
+      "name": "auth",
+      "type": "registry:block",
+      "title": "auth",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@spechy/button",
+        "@spechy/checkbox",
+        "@spechy/input",
+        "@spechy/otp-input",
+        "@spechy/password-input",
+        "@spechy/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/spechy/blocks/auth/auth-layout.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/auth/auth-layout.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/auth/forgot-password-page.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/auth/forgot-password-page.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/auth/login-page.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/auth/login-page.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/auth/register-page.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/auth/register-page.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/auth/reset-password-page.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/auth/reset-password-page.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/auth/social-icons.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/auth/social-icons.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/auth/verify-code-page.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/auth/verify-code-page.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dashboard",
+      "type": "registry:block",
+      "title": "dashboard",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@spechy/avatar",
+        "@spechy/badge",
+        "@spechy/button",
+        "@spechy/dropdown-menu",
+        "@spechy/input",
+        "@spechy/sheet",
+        "@spechy/tooltip",
+        "@spechy/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/spechy/blocks/dashboard/app-footer.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-footer.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-header.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-header.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-layout.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-layout.tsx"
+        },
+        {
+          "path": "registry/spechy/blocks/dashboard/app-sidebar.tsx",
+          "type": "registry:block",
+          "target": "~/src/blocks/dashboard/app-sidebar.tsx"
+        }
+      ]
+    },
+    {
       "name": "spechy-ui-all",
       "type": "registry:block",
       "title": "Tüm Spechy UI bileşenleri",

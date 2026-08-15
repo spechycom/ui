@@ -87,6 +87,28 @@ dropdown-menu, field, input, label, option-avatar, otp-input, password-input,
 popover, radio-group, scroll-area, select, separator, sheet, skeleton,
 slider, spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip
 
+## Bloklar
+
+Bloklar, gerçek sayfa tasarımlarının **sıfır iş mantığına sahip** kopyalarıdır
+— form validasyonu, veri çekme, routing, i18n yok; sadece görsel iskelet.
+Tek komutla kurulur, dosyalar `src/blocks/<blok-adı>/` altına iner:
+
+```bash
+npx shadcn@latest add @spechy/auth        # login, register, forgot/reset/verify sayfaları
+npx shadcn@latest add @spechy/dashboard   # sidebar + header + footer + layout shell
+```
+
+| Blok | İçerik |
+| --- | --- |
+| `auth` | `auth-layout`, `login-page`, `register-page`, `forgot-password-page`, `reset-password-page`, `verify-code-page`, `social-icons` |
+| `dashboard` | `app-layout`, `app-header`, `app-sidebar`, `app-footer` |
+
+Sayfa içi linkler düz `<a href>`, dashboard shell `Outlet` yerine `children`
+prop'u kullanır — kendi router'ınıza bağlamak size kalır. Yeni bir blok
+eklemek için `registry/spechy/blocks/<ad>/` altına dosyaları koyup
+`node scripts/gen-registry.mjs` çalıştırmak yeterli, script klasörü otomatik
+algılar.
+
 ## Bilinmesi gerekenler
 
 - Bileşenler `@tabler/icons-react` kullanır, `lucide-react` değil.

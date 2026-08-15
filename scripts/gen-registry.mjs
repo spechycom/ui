@@ -92,7 +92,7 @@ for (const name of blockDirNames) {
     files: blockFiles.map((file) => ({
       path: `registry/spechy/blocks/${name}/${file}`,
       type: 'registry:block',
-      target: `~/blocks/${name}/${file}`,
+      target: `~/src/blocks/${name}/${file}`,
     })),
   })
 }
