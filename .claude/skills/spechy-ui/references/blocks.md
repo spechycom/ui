@@ -12,7 +12,6 @@ Kurulum, bileşenlerle aynı `add` komutu üzerinden çalışır — ayrı bir C
 
 ```bash
 npx shadcn@latest add @spechy/auth
-npx shadcn@latest add @spechy/dashboard
 ```
 
 Dosyalar `src/blocks/<blok-adı>/` altına iner (bileşenlerin `src/components/ui/`
@@ -38,31 +37,6 @@ Sayfa içi linkler (`/login`, `/register`, `/forgot-password` ...) düz
 `<a href>` — kendi router'ınıza (React Router, Next.js `Link`, vb.) bağlamak
 size kalır, ADR-0023 tipi "iç navigasyon `<Link>` olmalı" kuralları burada
 **geçerli değildir**, çünkü blok router-agnostik tasarlanmıştır.
-
-## `dashboard`
-
-| Dosya | İçerik |
-| --- | --- |
-| `app-layout.tsx` | Grid shell — masaüstünde sabit sidebar, mobilde `Sheet` içinde aynı sidebar, `Outlet` yerine `children` prop'u |
-| `app-header.tsx` | Hamburger (mobil), statik arama input'u, bildirim zili (`Badge` sayaç sabit "3"), avatar + dropdown (Profile/Settings/Log out, `onClick` yok) |
-| `app-sidebar.tsx` | 5 statik nav item, collapse/expand toggle, daraltılmışken `Tooltip` |
-| `app-footer.tsx` | Tek satır telif hakkı metni |
-
-`registryDependencies`: `avatar`, `badge`, `button`, `dropdown-menu`,
-`input`, `sheet`, `tooltip`, `utils`. `dependencies`: `@tabler/icons-react`.
-
-Notlar:
-- `app-header.tsx`/`app-layout.tsx`/`app-sidebar.tsx` `'use client'` direktifi
-  taşır — Next.js App Router tüketicileri için gerekli (event handler prop'u
-  alan bir bileşen render ediyor), Vite/CRA gibi client-only projelerde
-  zararsızdır, silmeye gerek yok.
-- Sidebar'daki nav item'lar (`Dashboard`, `Contacts`, ...) ve aktif durum
-  (`ACTIVE_LABEL`) sabit string karşılaştırmasıdır — gerçek route eşleştirmesi
-  yok, kendi router'ınızın aktif-link mantığını siz eklersiniz.
-- `Tooltip` kullanıldığı için tüketici projenin kök seviyesinde bir
-  `TooltipProvider` olması gerekir (blok kendi provider'ını sarmaz — provider
-  genelde app kökünde bir kere kurulur, blok içine gömülürse çift-provider
-  hatası çıkar).
 
 ## Yeni blok eklerken
 

@@ -1,6 +1,6 @@
 ---
 name: spechy-ui
-description: Bu projeye Spechy'nin özelleştirilmiş shadcn UI bileşenlerini ve sayfa bloklarını (auth, dashboard) kurar veya günceller. Argüman olarak bileşen/blok adları alır (ör. "button dialog" ya da "auth"); boş bırakılırsa tüm bileşenler kurulur.
+description: Bu projeye Spechy'nin özelleştirilmiş shadcn UI bileşenlerini ve sayfa bloklarını (auth) kurar veya günceller. Argüman olarak bileşen/blok adları alır (ör. "button dialog" ya da "auth"); boş bırakılırsa tüm bileşenler kurulur.
 disable-model-invocation: true
 argument-hint: [bileşen-adı ... | blok-adı]
 allowed-tools: Bash, Read, Edit, Write
@@ -9,14 +9,14 @@ allowed-tools: Bash, Read, Edit, Write
 `@spechy` registry'sinden bileşen ve blok kurar. Kaynak ve tam katalog:
 https://github.com/spechycom/ui
 
-Argüman bir blok adıysa (`auth`, `dashboard`) adım 4'ü atla, doğrudan
+Argüman bir blok adıysa (`auth`) adım 4'ü atla, doğrudan
 adım 4.5'e geç — bloklar da aynı registry + tema altyapısını kullanır, sadece
 kurulan içerik farklıdır (bileşen değil, sayfa iskeleti). Blokların tam
 kataloğu, hangi dosyaları içerdiği ve kurulum sonrası dikkat edilmesi
 gereken noktalar için `references/blocks.md`'ye bak — orada okumadan blok
-kurma, ör. `dashboard` bloğu bir `TooltipProvider` bekliyor ve bunu
-kendi sağlamıyor, bu detayı görmeden kurulum "çalışıyor gibi görünüp"
-konsolda sessizce yanlış render üretebilir.
+kurma, kurulum sonrası elle yapılması gereken bağlama adımları (router,
+provider, i18n) görülmeden kurulum "çalışıyor gibi görünüp" konsolda
+sessizce yanlış render üretebilir.
 
 Aşağıdaki komutlarda `npx` yazan her yerde, projenin kilit dosyasına göre
 doğru çalıştırıcıyı kullan: `pnpm-lock.yaml` → `pnpm dlx`, `yarn.lock` →
@@ -87,7 +87,6 @@ kurulum sonrası şaşırmamak için önemli.
 
 ```bash
 npx shadcn@latest add @spechy/auth
-npx shadcn@latest add @spechy/dashboard
 ```
 
 Dosyalar bileşenlerden farklı bir yere, `src/blocks/<blok-adı>/` altına
