@@ -6,9 +6,8 @@ Spechy'nin özelleştirdiği [shadcn/ui](https://ui.shadcn.com) bileşenleri —
 **shadcn registry**: bileşen kaynağı kendi projenize kopyalanır, dilediğiniz
 gibi düzenleyebilirsiniz — npm sürümüne bağımlı kalmazsınız.
 
-Kaynak: [`spechy-omni-web`](https://github.com/spechycom/spechy-omni-web)
-`src/shared/ui/`'den taşındı ve standart shadcn alias'larına (`@/components/ui`,
-`@/lib/utils`) uyacak şekilde yeniden yazıldı.
+Standart shadcn alias'larına (`@/components/ui`, `@/lib/utils`) uyacak
+şekilde yazıldı.
 
 ## Önizleme
 
@@ -133,6 +132,14 @@ algılar.
 
 ## Claude Code entegrasyonu
 
-Bu repoda `.claude/skills/spechy-ui/` altında bir kurulum skill'i var — bir
-tüketici projeye kopyalayın (`.claude/skills/spechy-ui/`), ardından o
-projede `/spechy-ui` ile bileşen ekletebilirsiniz.
+Bu repoda `.claude/skills/spechy-ui/` altında bir kurulum skill'i var. En
+kolay yol, [`skills`](https://github.com/vercel-labs/skills) CLI'ıyla hedef
+projenize kurmak:
+
+```bash
+npx skills add spechycom/ui@spechy-ui
+```
+
+Elle kopyalamak isterseniz `.claude/skills/spechy-ui/` klasörünü tüketici
+projeye taşıyın. Her iki yolda da kurulumdan sonra o projede `/spechy-ui`
+ile bileşen/blok ekletebilirsiniz.
