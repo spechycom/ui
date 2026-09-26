@@ -1,0 +1,6 @@
+/* Storybook-only entry point: the published package's theme.css intentionally
+   does not import Tailwind (the consuming app does that) — Storybook is its
+   own "app", so it does both here. */
+@import "tailwindcss";
+@source "../src";
+@import "../src/theme.css";
