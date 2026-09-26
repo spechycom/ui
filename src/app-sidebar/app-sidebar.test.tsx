@@ -69,4 +69,10 @@ describe('AppSidebar', () => {
 
     expect(onLanguageChange).toHaveBeenCalledWith('tr')
   })
+
+  it('shows the email once, not twice, when the user has no name', () => {
+    renderSidebar({ user: { email: 'admin@example.com' } })
+
+    expect(screen.getAllByText('admin@example.com')).toHaveLength(1)
+  })
 })

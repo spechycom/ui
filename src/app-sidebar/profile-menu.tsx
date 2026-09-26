@@ -25,7 +25,9 @@ const THEME_OPTIONS: { value: Theme; icon: ComponentType<{ className?: string; s
 ]
 
 export type ProfileMenuUser = {
-  name: string
+  /** Omit when the product has no display name for this account (e.g. an email-only admin user)
+   * — the email then renders once, on its own line, instead of showing it twice. */
+  name?: string
   email: string
   avatarUrl?: string
 }
@@ -97,13 +99,19 @@ export function ProfileMenu({
           >
             <Avatar className="shrink-0">
               {user.avatarUrl ? <AvatarImage src={user.avatarUrl} alt="" /> : null}
-              <AvatarFallback>{initials(user.name)}</AvatarFallback>
+              <AvatarFallback>{initials(user.name || user.email)}</AvatarFallback>
             </Avatar>
             {collapsed ? null : (
               <>
                 <span className="flex min-w-0 flex-1 flex-col text-start">
-                  <span className="truncate font-semibold text-[13px]">{user.name}</span>
-                  <span className="truncate text-[11.5px] text-text-secondary">{user.email}</span>
+                  {user.name ? (
+                    <>
+                      <span className="truncate font-semibold text-[13px]">{user.name}</span>
+                      <span className="truncate text-[11.5px] text-text-secondary">{user.email}</span>
+                    </>
+                  ) : (
+                    <span className="truncate font-semibold text-[13px]">{user.email}</span>
+                  )}
                 </span>
                 <IconChevronRight size={15} stroke={1.75} className="shrink-0 text-text-faint" />
               </>
@@ -115,11 +123,17 @@ export function ProfileMenu({
           <DropdownMenuLabel className="flex items-center gap-2.5 px-2 pt-2 pb-3">
             <Avatar size="lg" className="shrink-0">
               {user.avatarUrl ? <AvatarImage src={user.avatarUrl} alt="" /> : null}
-              <AvatarFallback>{initials(user.name)}</AvatarFallback>
+              <AvatarFallback>{initials(user.name || user.email)}</AvatarFallback>
             </Avatar>
             <span className="flex min-w-0 flex-col gap-0.5">
-              <span className="truncate font-semibold text-sm">{user.name}</span>
-              <span className="truncate text-text-secondary text-xs">{user.email}</span>
+              {user.name ? (
+                <>
+                  <span className="truncate font-semibold text-sm">{user.name}</span>
+                  <span className="truncate text-text-secondary text-xs">{user.email}</span>
+                </>
+              ) : (
+                <span className="truncate font-semibold text-sm">{user.email}</span>
+              )}
             </span>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
