@@ -6,3 +6,10 @@ docs/superpowers/
 
 # Dashboard block test ortamı — yerel kalır, repoya gitmez
 playground/
+
+# npm package build artifacts — not committed
+node_modules/
+dist/
+storybook-static/
+*.tgz
+
