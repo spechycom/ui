@@ -2,32 +2,130 @@
 
 Spechy'nin özelleştirdiği [shadcn/ui](https://ui.shadcn.com) bileşenleri —
 `new-york` stili, [`@tabler/icons-react`](https://tabler.io/icons) ikonları,
-`Inter` tipografisi ve marka renk paletiyle. Klasik bir npm paketi değil, bir
-**shadcn registry**: bileşen kaynağı kendi projenize kopyalanır, dilediğiniz
-gibi düzenleyebilirsiniz — npm sürümüne bağımlı kalmazsınız.
+`Inter` tipografisi ve marka renk paletiyle. İki şekilde tüketilebilir:
 
-Standart shadcn alias'larına (`@/components/ui`, `@/lib/utils`) uyacak
-şekilde yazıldı.
+- **npm paketi `@spechycom/ui`** (önerilen): derlenmiş ESM + tip dosyaları,
+  GitHub Packages üzerinden. Sürüm yükseltmeleri `npm update` ile gelir.
+- **shadcn registry** (aşağıdaki "shadcn registry" bölümü): bileşen kaynağı
+  kendi projenize kopyalanır, dilediğiniz gibi düzenlersiniz — npm sürümüne
+  bağımlı kalmazsınız, ama güncellemeler elle taşınır.
+
+Aynı kaynaktan üretilir: registry, `src/` altındaki dosyaları paketler; npm
+paketi de aynı dosyaları derler. İkisi arasında kopya fark yoktur.
 
 ## Önizleme
 
 ![Spechy UI bileşenleriyle kurulmuş örnek bir dashboard](./docs/dashboard-showcase.png)
 
-## Önkoşullar
+## npm paketi
 
-Hedef projenizde şunlar kurulu olmalı:
+### Kurulum
 
-- Tailwind CSS v4
-- [`tw-animate-css`](https://www.npmjs.com/package/tw-animate-css)
-- Bir shadcn `components.json` (yoksa `npx shadcn@latest init` ile kurun —
-  paket yöneticinize göre `yarn dlx`/`pnpm dlx`/`bunx --bun` da kullanılabilir)
-- **Vite projelerinde:** `@/*` alias'ı kök `tsconfig.json`'da da tanımlı olmalı
-  (`baseUrl` + `paths`) — sadece `tsconfig.app.json`'da olması yetmez, shadcn
-  CLI alias'ı kök dosyadan okur. Eksikse kurulum dosyaları `src/` yerine
-  literal bir `@/` klasörüne düşer. Bkz.
-  [shadcn Vite kurulum dokümanı](https://ui.shadcn.com/docs/installation/vite).
+Paket [GitHub Packages](https://github.com/features/packages)'ta, `@spechycom`
+scope'unda yayımlanır. Projenizin köküne (ya da `~/.npmrc`'ye) şunu ekleyin:
 
-## Otomatik kurulum (herhangi bir coding agent)
+```
+@spechycom:registry=https://npm.pkg.github.com
+```
+
+GitHub Packages'tan `npm install` için okuma izinli bir token (`read:packages`)
+gerekir — `.npmrc`'ye `//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}` satırını
+ekleyin ya da `npm login --registry=https://npm.pkg.github.com` ile giriş yapın.
+
+```bash
+npm install @spechycom/ui
+```
+
+Peer bağımlılıklar: `react`, `react-dom` (^19) ve `radix-ui` (^1.6.7) — bunlar
+projenizde zaten kurulu olmalı.
+
+### Tema ve Tailwind
+
+Paket, Tailwind CSS v4 ile çalışır. Ana CSS dosyanızda `@import "tailwindcss"`
+satırından **sonra** paketin tema dosyasını import edin, ve paketin ürettiği
+sınıfların taranması için bir `@source` ekleyin:
+
+```css
+@import "tailwindcss";
+@import "@spechycom/ui/theme.css";
+@source "../../node_modules/@spechycom/ui/dist";
+```
+
+`@source` yolu, bu CSS dosyasının konumuna göre `node_modules`'a giden **göreli**
+yoldur — örnekteki `../../` iki klasör yukarıda `node_modules` olduğunu varsayar
+(ör. CSS dosyası `web/src/admin/globals.css`'te, `node_modules` `web/node_modules`'ta
+ise doğru yol budur); kendi dosya yerleşiminize göre ayarlayın.
+
+Marka tipografisi Inter'dir; tema dosyası yalnızca CSS değişkeni olarak
+tanımlar, fontun kendisini yüklemez — ana HTML'inize (ya da CSS'inize) ekleyin:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&display=swap"
+  rel="stylesheet"
+/>
+```
+
+ya da CSS'te:
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&display=swap");
+```
+
+Koyu mod, `<html>` üzerindeki `dark` class'ıyla çalışır — paketin `ThemeProvider`/
+`useTheme`'i bunu sizin için yönetir (aşağıya bakın).
+
+### Kullanım
+
+```tsx
+import { Button, Card, CardContent, ThemeProvider } from "@spechycom/ui";
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Card>
+        <CardContent>
+          <Button>Kaydet</Button>
+        </CardContent>
+      </Card>
+    </ThemeProvider>
+  );
+}
+```
+
+### v0.1 içeriği
+
+- Tema: `ThemeProvider`, `useTheme` (`light` | `dark` | `system`, `localStorage`'a yazar)
+- Temel bileşenler: `Button`, `Input`, `PasswordInput`, `Label`, `Field`, `Card`,
+  `Dialog`, `AlertDialog`, `DropdownMenu`, `Select`, `Popover`, `Calendar`,
+  `DateRangePicker`, `Tabs`, `Table`, `Badge`, `Tooltip`, `Skeleton`, `Spinner`,
+  `Separator`, `ScrollArea`, `Sheet`
+- `DataTable`: sunucu taraflı sayfalama (`pageIndex`/`pageCount`/`onPageChange`),
+  isteğe bağlı satır linki (`getRowHref`), `loading`/boş durum, `labels` prop'uyla
+  İngilizce varsayılanların üzerine yazma.
+- `AppSidebar`: daraltma/sabitleme (`localStorage`'a yazılır), profil menüsü
+  (tema + dil seçimi + özel işlemler), `renderLink` ile kendi router'ınıza bağlama.
+
+Paket i18n taşımaz — yukarıdaki `labels`/`profileActions`/`languages` gibi
+prop'lar üzerinden metin verirsiniz, verilmezse İngilizce varsayılanlar kullanılır.
+Giriş ekranları pakete girmez; kendi login/register sayfalarınızı paketteki
+bileşenlerle yazarsınız.
+
+Omni-web'deki diğer bileşenler (Alert, Avatar, Checkbox, Combobox, Command,
+RadioGroup, Slider, Switch, Textarea, Toggle, vb.) henüz pakette değil — şimdilik
+yalnızca [shadcn registry](#shadcn-registry) üzerinden erişilebilirler, sonraki
+sürümlerde pakete eklenirler.
+
+## shadcn registry
+
+Registry'yi kullanmak isteyenler için: bileşen kaynağı kendi projenize
+kopyalanır, dilediğiniz gibi düzenleyebilirsiniz.
+
+Standart shadcn alias'larına (`@/components/ui`, `@/lib/utils`) uyacak
+şekilde yazıldı.
+
+### Otomatik kurulum (herhangi bir coding agent)
 
 Uğraşmak istemiyorsanız [`install.md`](./install.md)'nin tüm içeriğini
 kopyalayıp Claude Code, Cursor, Codex vb. bir coding agent'a yapıştırın —
@@ -35,7 +133,7 @@ agent `components.json` kurulumundan bileşen eklemeye, Claude Code'daysa
 `.claude/skills/spechy-ui/` skill'ini projeye eklemeye kadar hepsini kendisi
 yapar. Aşağıdaki bölümler elle yapmak isteyenler içindir.
 
-## Kurulum
+### Kurulum
 
 `components.json`'a registry'yi **bir kere** tanımlayın — `{name}` yer
 tutucusunu CLI her `add` çağrısında istenen bileşenin adıyla otomatik
@@ -84,7 +182,8 @@ alert, alert-dialog, avatar, badge, button, calendar, card, checkbox,
 collapsible, combobox, command, date-range-picker, date-time-picker, dialog,
 dropdown-menu, field, input, label, option-avatar, otp-input, password-input,
 popover, radio-group, scroll-area, select, separator, sheet, skeleton,
-slider, spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip
+slider, spinner, switch, table, tabs, textarea, time-input, toggle,
+toggle-group, tooltip
 
 ## Hooks
 
@@ -123,7 +222,8 @@ Profil menüsündeki tema seçici mock değil, `use-theme` hook'unu kullanır �
 dark mode kurulum sonrası gerçekten çalışır durumda gelir. Yeni bir blok
 eklemek için `registry/spechy/blocks/<ad>/` altına dosyaları koyup
 `node scripts/gen-registry.mjs` çalıştırmak yeterli, script klasörü otomatik
-algılar.
+algılar. `DataTable` ve `AppSidebar` artık npm paketinde de var (bkz. yukarısı) —
+bunlar için registry'ye ayrıca dosya eklenmez, aynı `src/` kaynağından derlenir.
 
 ## Bilinmesi gerekenler
 
@@ -134,18 +234,39 @@ algılar.
   - `PasswordInput`: `showLabel`/`hideLabel`
   - `DialogContent`, `SheetContent`: `closeLabel` (sağ üst X butonunun sr-only etiketi)
   - `DialogFooter`: `closeLabel` (`showCloseButton` açıkken buton metni)
+  - `DataTable`: `labels` (sayfalama, "Sonuç yok", vb.)
+  - `AppSidebar`: `labels` (sabitle/daralt, profil menüsü, tema, dil)
 
   Örn. `<PasswordInput showLabel={t('password.show')} hideLabel={t('password.hide')} />`.
+- `DataTable`'da satırı link yapan `getRowHref`, satırın ilk hücresini gerçek
+  bir `<a href>` yapar (Bootstrap'in "stretched link" tekniği) — Cmd/Ctrl/orta
+  tık çalışır. Başka bir hücrede tıklanabilir bir eleman (ör. aksiyon butonu)
+  varsa, o elemana `className="relative"` ekleyin ki satır linkinin üzerinde
+  kalıp tıklanabilir olsun.
 
 ## Yeni bileşen ekleme / güncelleme
 
-1. `registry/spechy/ui/` altına dosyayı ekleyin veya güncelleyin — import'lar
+1. `src/ui/` altına dosyayı ekleyin veya güncelleyin — import'lar
    standart shadcn alias'larıyla yazılmalı (`@/components/ui/x`, `@/lib/utils`).
 2. `node scripts/gen-registry.mjs` — `registry.json`'ı importlardan otomatik
    yeniden üretir; script'in uyaramadığı bir bağımlılık varsa uyarı basar,
    elle düzeltin.
 3. `npx shadcn@latest build` — `public/r/*.json` statik dosyalarını üretir.
-4. Commit + push. `main`'e giden her push canlı registry'yi günceller.
+4. Bileşen npm paketine de girecekse `src/index.ts`'e export'unu ekleyin.
+5. Commit + push. `main`'e giden her push canlı registry'yi günceller; bir
+   `v*` etiketi de npm paketini GitHub Packages'a yayımlar (bkz.
+   `.github/workflows/publish.yml`).
+
+## Geliştirme
+
+```bash
+npm install
+npm run dev              # Storybook, http://localhost:6006
+npm test                 # Vitest
+npm run typecheck
+npm run build            # dist/ (ESM + tipler + theme.css)
+npm run build-storybook
+```
 
 ## Claude Code entegrasyonu
 
