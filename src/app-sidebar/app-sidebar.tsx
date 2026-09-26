@@ -105,7 +105,7 @@ export function AppSidebar({
         onMouseLeave={() => setHovering(false)}
         className={cn(
           'flex h-full flex-col border-e bg-card transition-[width] duration-200',
-          collapsed ? 'w-16' : 'w-64',
+          collapsed ? 'w-16' : 'w-[264px]',
           className,
         )}
       >

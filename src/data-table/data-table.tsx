@@ -9,6 +9,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import type { ReactNode } from 'react'
+import { useId } from 'react'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -52,6 +53,10 @@ export type DataTableProps<TData> = {
    * Return `undefined` to leave a specific row non-navigable.
    */
   getRowHref?: (row: TData) => string | undefined
+  /** Accessible name for a row's link, when `getRowHref` is given — defaults to the first cell's
+   * rendered content (often just one field, e.g. a name), which can be ambiguous. E.g. a meetings
+   * table might pass `(row) => \`${row.host} · ${row.guest} · ${row.date}\``. */
+  getRowLabel?: (row: TData) => string
   /**
    * Omit `pageIndex`/`pageCount`/`onPageChange` together for a small, client-only list (e.g. a
    * "currently live" table with no server paging) — the pagination footer doesn't render at all.
@@ -78,6 +83,7 @@ export function DataTable<TData>({
   data,
   getRowId,
   getRowHref,
+  getRowLabel,
   pageIndex,
   pageSize,
   pageCount,
@@ -152,7 +158,14 @@ export function DataTable<TData>({
                     ))}
                   </TableRow>
                 ))
-              : rows.map((row) => <DataTableRow key={row.id} row={row} getRowHref={getRowHref} />)}
+              : rows.map((row) => (
+                  <DataTableRow
+                    key={row.id}
+                    row={row}
+                    getRowHref={getRowHref}
+                    getRowLabel={getRowLabel}
+                  />
+                ))}
           </TableBody>
         </Table>
       )}
@@ -176,11 +189,14 @@ export function DataTable<TData>({
 function DataTableRow<TData>({
   row,
   getRowHref,
+  getRowLabel,
 }: {
   row: Row<TData>
   getRowHref?: ((row: TData) => string | undefined) | undefined
+  getRowLabel?: ((row: TData) => string) | undefined
 }) {
   const href = getRowHref?.(row.original)
+  const label = getRowLabel?.(row.original)
   const cells = row.getVisibleCells()
 
   return (
@@ -193,11 +209,17 @@ function DataTableRow<TData>({
         // `position: relative`, set above) and escapes the `<td>` box to cover the whole row —
         // one valid, singly-focusable anchor per row, no `<a>` wrapping `<tr>`. Interactive
         // elements in other cells (e.g. an action button) need their own `relative` class so
-        // they paint above the overlay and stay clickable.
+        // they paint above the overlay and stay clickable. The focus ring lives on that same
+        // `::after` (via `focus-visible:after:*`) so a keyboard user sees the whole row light up,
+        // not just a thin outline around the first cell's own content.
         return (
           <TableCell key={cell.id}>
             {index === 0 && href ? (
-              <a href={href} className="after:absolute after:inset-0">
+              <a
+                href={href}
+                aria-label={label}
+                className="rounded-xs outline-none after:absolute after:inset-0 focus-visible:after:rounded-[inherit] focus-visible:after:ring-2 focus-visible:after:ring-ring focus-visible:after:ring-inset"
+              >
                 {content}
               </a>
             ) : (
@@ -229,6 +251,7 @@ function DataTablePagination({
   onPageIndexChange: (pageIndex: number) => void
   onPageSizeChange: (pageSize: number) => void
 }) {
+  const pageSizeLabelId = useId()
   return (
     <div className="flex flex-col-reverse items-center justify-between gap-3 border-t px-4 py-3 sm:flex-row">
       <p className="text-sm text-text-secondary">{range}</p>
@@ -236,9 +259,11 @@ function DataTablePagination({
       <div className="flex items-center gap-4">
         {pageSizeOptions && pageSizeOptions.length > 0 ? (
           <div className="flex items-center gap-2">
-            <span className="text-sm text-text-secondary">{labels.pageSizeLabel}</span>
+            <span id={pageSizeLabelId} className="text-sm text-text-secondary">
+              {labels.pageSizeLabel}
+            </span>
             <Select value={String(pageSize)} onValueChange={(value) => onPageSizeChange(Number(value))}>
-              <SelectTrigger size="sm" className="w-16">
+              <SelectTrigger size="sm" aria-labelledby={pageSizeLabelId} className="w-20">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

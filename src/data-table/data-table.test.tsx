@@ -84,4 +84,21 @@ describe('DataTable', () => {
     render(<DataTable {...baseProps({ pageSizeOptions: [10, 25, 50] })} />)
     expect(screen.getByText('Rows per page')).toBeInTheDocument()
   })
+
+  it('associates the page-size label with its Select via aria-labelledby', () => {
+    render(<DataTable {...baseProps({ pageSizeOptions: [10, 25, 50] })} />)
+    expect(screen.getByRole('combobox', { name: 'Rows per page' })).toBeInTheDocument()
+  })
+
+  it('uses getRowLabel for the row link accessible name when given', () => {
+    render(
+      <DataTable
+        {...baseProps({
+          getRowHref: (row) => `/people/${row.id}`,
+          getRowLabel: (row) => `${row.name} (${row.id})`,
+        })}
+      />,
+    )
+    expect(screen.getByRole('link', { name: 'Ada Lovelace (1)' })).toBeInTheDocument()
+  })
 })

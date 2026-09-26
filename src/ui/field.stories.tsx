@@ -34,7 +34,7 @@ export const Vertical: Story = {
     <Field {...args} className="w-80">
       <FieldContent>
         <FieldLabel htmlFor="email">Email</FieldLabel>
-        <Input id="email" type="email" placeholder="name@spechy.com" />
+        <Input id="email" type="email" placeholder="name@example.com" />
         <FieldDescription>Notifications are sent to this address.</FieldDescription>
       </FieldContent>
     </Field>
@@ -92,7 +92,7 @@ export const WithLegendAndSeparator: Story = {
         <Field orientation="vertical">
           <FieldContent>
             <FieldLabel htmlFor="email-group">Email</FieldLabel>
-            <Input id="email-group" type="email" placeholder="name@spechy.com" />
+            <Input id="email-group" type="email" placeholder="name@example.com" />
           </FieldContent>
         </Field>
       </FieldGroup>

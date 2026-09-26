@@ -20,9 +20,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const customers = [
-  { name: 'Ada Lovelace', email: 'ada@spechy.com', status: 'Active' },
-  { name: 'Grace Hopper', email: 'grace@spechy.com', status: 'Inactive' },
-  { name: 'Alan Turing', email: 'alan@spechy.com', status: 'Active' },
+  { name: 'Ada Lovelace', email: 'ada@example.com', status: 'Active' },
+  { name: 'Grace Hopper', email: 'grace@example.com', status: 'Inactive' },
+  { name: 'Alan Turing', email: 'alan@example.com', status: 'Active' },
 ]
 
 export const Populated: Story = {

@@ -34,7 +34,7 @@ export const WithError: Story = {
 }
 
 export const Email: Story = {
-  args: { type: 'email', placeholder: 'name@spechy.com' },
+  args: { type: 'email', placeholder: 'name@example.com' },
 }
 
 export const NumberType: Story = {
