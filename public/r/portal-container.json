@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "portal-container",
+  "title": "portal-container",
+  "description": "Lets nested overlays (Popover/Select/DropdownMenu) portal into an outer Dialog/Sheet's content node instead of `document.body`, so scroll locking keeps working.",
+  "files": [
+    {
+      "path": "src/lib/portal-container.tsx",
+      "content": "import { createContext, useContext } from 'react'\n\n/**\n * Nested scroll bug: while a `Sheet`/`Dialog` is open, `react-remove-scroll` only allows\n * wheel/touch events on its own content node (its `shards`); a `Popover`/`Select`/\n * `DropdownMenu` portaling into `document.body` falls outside that allowance and its\n * scroll locks up. Fix: portal the nested content into the outer modal's content node\n * instead — `SheetContent`/`DialogContent` write it, `PopoverContent`/`SelectContent`/\n * `DropdownMenuContent` read it; with no provider it returns `null` and Radix falls back\n * to `document.body` anyway.\n */\nconst PortalContainerContext = createContext<HTMLElement | null>(null)\n\nexport const PortalContainerProvider = PortalContainerContext.Provider\n\nexport function usePortalContainer() {\n  return useContext(PortalContainerContext)\n}\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

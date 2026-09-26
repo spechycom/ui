@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-horizontal-scroll-fade",
+  "title": "use-horizontal-scroll-fade",
+  "description": "Scroll-edge state for a horizontally scrollable bar, to fade in a \"more content\" hint.",
+  "files": [
+    {
+      "path": "src/hooks/use-horizontal-scroll-fade.ts",
+      "content": "import { useCallback, useEffect, useRef, useState } from 'react'\n\n/** Returns scroll state for an edge fade that signals \"more content\" on a horizontally-scrolling bar. */\nexport function useHorizontalScrollFade<T extends HTMLElement>() {\n  const ref = useRef<T>(null)\n  const [canScrollLeft, setCanScrollLeft] = useState(false)\n  const [canScrollRight, setCanScrollRight] = useState(false)\n\n  const update = useCallback(() => {\n    const el = ref.current\n    if (!el) return\n    setCanScrollLeft(el.scrollLeft > 0)\n    setCanScrollRight(Math.ceil(el.scrollLeft + el.clientWidth) < el.scrollWidth)\n  }, [])\n\n  useEffect(() => {\n    const el = ref.current\n    if (!el) return\n    update()\n    const resizeObserver = new ResizeObserver(update)\n    resizeObserver.observe(el)\n    // The content container is observed too: the container's own width can stay fixed\n    // while its content grows (a screen where tab count/labels change later) — otherwise\n    // the fade would go stale.\n    if (el.firstElementChild) resizeObserver.observe(el.firstElementChild)\n    return () => resizeObserver.disconnect()\n  }, [update])\n\n  return { ref, canScrollLeft, canScrollRight, onScroll: update }\n}\n",
+      "type": "registry:hook",
+      "target": "~/hooks/use-horizontal-scroll-fade.ts"
+    }
+  ],
+  "type": "registry:hook"
+}

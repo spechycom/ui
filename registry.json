@@ -13,7 +13,19 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/lib/utils.ts",
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "portal-container",
+      "type": "registry:lib",
+      "title": "portal-container",
+      "description": "Lets nested overlays (Popover/Select/DropdownMenu) portal into an outer Dialog/Sheet's content node instead of `document.body`, so scroll locking keeps working.",
+      "files": [
+        {
+          "path": "src/lib/portal-container.tsx",
           "type": "registry:lib"
         }
       ]
@@ -22,26 +34,39 @@
       "name": "use-theme",
       "type": "registry:hook",
       "title": "use-theme",
-      "description": "ThemeProvider + useTheme() — light/dark/system tema seçimini localStorage’a yazar, <html>’e `dark` class’ını uygular, \"system\" seçiliyken işletim sistemi tercihini dinler.",
+      "description": "ThemeProvider + useTheme() — writes the light/dark/system choice to localStorage, applies the `dark` class to `<html>`, and follows the OS preference while \"system\" is selected.",
       "files": [
         {
-          "path": "registry/spechy/hooks/use-theme.tsx",
+          "path": "src/hooks/use-theme.tsx",
           "type": "registry:hook",
           "target": "~/hooks/use-theme.tsx"
         }
       ]
     },
     {
+      "name": "use-horizontal-scroll-fade",
+      "type": "registry:hook",
+      "title": "use-horizontal-scroll-fade",
+      "description": "Scroll-edge state for a horizontally scrollable bar, to fade in a \"more content\" hint.",
+      "files": [
+        {
+          "path": "src/hooks/use-horizontal-scroll-fade.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-horizontal-scroll-fade.ts"
+        }
+      ]
+    },
+    {
       "name": "theme",
       "type": "registry:file",
-      "title": "Spechy tasarım token’ları",
-      "description": "Bileşenlerin render için ihtiyaç duyduğu CSS değişkenleri (renk, control yüksekliği, radius, gölge, animasyon). Önce bu eklenmeli.",
+      "title": "Spechy design tokens",
+      "description": "The CSS variables components need to render (color, control height, radius, shadow, animation). Add this first.",
       "dependencies": [
         "tw-animate-css"
       ],
       "files": [
         {
-          "path": "registry/spechy/theme/spechy-ui-theme.css",
+          "path": "src/theme.css",
           "type": "registry:file",
           "target": "~/styles/spechy-ui-theme.css"
         }
@@ -59,7 +84,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/alert.tsx",
+          "path": "src/ui/alert.tsx",
           "type": "registry:ui"
         }
       ]
@@ -77,7 +102,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/alert-dialog.tsx",
+          "path": "src/ui/alert-dialog.tsx",
           "type": "registry:ui"
         }
       ]
@@ -94,7 +119,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/avatar.tsx",
+          "path": "src/ui/avatar.tsx",
           "type": "registry:ui"
         }
       ]
@@ -112,7 +137,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/badge.tsx",
+          "path": "src/ui/badge.tsx",
           "type": "registry:ui"
         }
       ]
@@ -130,7 +155,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/button.tsx",
+          "path": "src/ui/button.tsx",
           "type": "registry:ui"
         }
       ]
@@ -145,11 +170,12 @@
       ],
       "registryDependencies": [
         "@spechy/button",
+        "@spechy/select",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/calendar.tsx",
+          "path": "src/ui/calendar.tsx",
           "type": "registry:ui"
         }
       ]
@@ -166,7 +192,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/card.tsx",
+          "path": "src/ui/card.tsx",
           "type": "registry:ui"
         }
       ]
@@ -184,7 +210,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/checkbox.tsx",
+          "path": "src/ui/checkbox.tsx",
           "type": "registry:ui"
         }
       ]
@@ -199,7 +225,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "registry/spechy/ui/collapsible.tsx",
+          "path": "src/ui/collapsible.tsx",
           "type": "registry:ui"
         }
       ]
@@ -214,12 +240,13 @@
       "registryDependencies": [
         "@spechy/button",
         "@spechy/command",
+        "@spechy/option-avatar",
         "@spechy/popover",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/combobox.tsx",
+          "path": "src/ui/combobox.tsx",
           "type": "registry:ui"
         }
       ]
@@ -238,7 +265,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/command.tsx",
+          "path": "src/ui/command.tsx",
           "type": "registry:ui"
         }
       ]
@@ -260,7 +287,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/date-range-picker.tsx",
+          "path": "src/ui/date-range-picker.tsx",
           "type": "registry:ui"
         }
       ]
@@ -277,11 +304,12 @@
         "@spechy/button",
         "@spechy/calendar",
         "@spechy/popover",
+        "@spechy/time-input",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/date-time-picker.tsx",
+          "path": "src/ui/date-time-picker.tsx",
           "type": "registry:ui"
         }
       ]
@@ -296,11 +324,12 @@
       ],
       "registryDependencies": [
         "@spechy/button",
+        "@spechy/portal-container",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/dialog.tsx",
+          "path": "src/ui/dialog.tsx",
           "type": "registry:ui"
         }
       ]
@@ -314,11 +343,12 @@
         "radix-ui"
       ],
       "registryDependencies": [
+        "@spechy/portal-container",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/dropdown-menu.tsx",
+          "path": "src/ui/dropdown-menu.tsx",
           "type": "registry:ui"
         }
       ]
@@ -337,7 +367,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/field.tsx",
+          "path": "src/ui/field.tsx",
           "type": "registry:ui"
         }
       ]
@@ -352,7 +382,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/input.tsx",
+          "path": "src/ui/input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -369,7 +399,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/label.tsx",
+          "path": "src/ui/label.tsx",
           "type": "registry:ui"
         }
       ]
@@ -385,7 +415,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/option-avatar.tsx",
+          "path": "src/ui/option-avatar.tsx",
           "type": "registry:ui"
         }
       ]
@@ -400,7 +430,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/otp-input.tsx",
+          "path": "src/ui/otp-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -418,7 +448,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/password-input.tsx",
+          "path": "src/ui/password-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -431,11 +461,12 @@
         "radix-ui"
       ],
       "registryDependencies": [
+        "@spechy/portal-container",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/popover.tsx",
+          "path": "src/ui/popover.tsx",
           "type": "registry:ui"
         }
       ]
@@ -453,7 +484,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/radio-group.tsx",
+          "path": "src/ui/radio-group.tsx",
           "type": "registry:ui"
         }
       ]
@@ -470,7 +501,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/scroll-area.tsx",
+          "path": "src/ui/scroll-area.tsx",
           "type": "registry:ui"
         }
       ]
@@ -484,11 +515,12 @@
         "radix-ui"
       ],
       "registryDependencies": [
+        "@spechy/portal-container",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/select.tsx",
+          "path": "src/ui/select.tsx",
           "type": "registry:ui"
         }
       ]
@@ -505,7 +537,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/separator.tsx",
+          "path": "src/ui/separator.tsx",
           "type": "registry:ui"
         }
       ]
@@ -519,11 +551,12 @@
         "radix-ui"
       ],
       "registryDependencies": [
+        "@spechy/portal-container",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/sheet.tsx",
+          "path": "src/ui/sheet.tsx",
           "type": "registry:ui"
         }
       ]
@@ -538,7 +571,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/skeleton.tsx",
+          "path": "src/ui/skeleton.tsx",
           "type": "registry:ui"
         }
       ]
@@ -555,7 +588,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/slider.tsx",
+          "path": "src/ui/slider.tsx",
           "type": "registry:ui"
         }
       ]
@@ -572,7 +605,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/spinner.tsx",
+          "path": "src/ui/spinner.tsx",
           "type": "registry:ui"
         }
       ]
@@ -589,7 +622,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/switch.tsx",
+          "path": "src/ui/switch.tsx",
           "type": "registry:ui"
         }
       ]
@@ -604,7 +637,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/table.tsx",
+          "path": "src/ui/table.tsx",
           "type": "registry:ui"
         }
       ]
@@ -618,11 +651,12 @@
         "radix-ui"
       ],
       "registryDependencies": [
+        "@spechy/use-horizontal-scroll-fade",
         "@spechy/utils"
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/tabs.tsx",
+          "path": "src/ui/tabs.tsx",
           "type": "registry:ui"
         }
       ]
@@ -637,7 +671,25 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/textarea.tsx",
+          "path": "src/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "time-input",
+      "type": "registry:ui",
+      "title": "time-input",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@spechy/button",
+        "@spechy/utils"
+      ],
+      "files": [
+        {
+          "path": "src/ui/time-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -655,7 +707,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/toggle.tsx",
+          "path": "src/ui/toggle.tsx",
           "type": "registry:ui"
         }
       ]
@@ -674,7 +726,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/toggle-group.tsx",
+          "path": "src/ui/toggle-group.tsx",
           "type": "registry:ui"
         }
       ]
@@ -691,7 +743,7 @@
       ],
       "files": [
         {
-          "path": "registry/spechy/ui/tooltip.tsx",
+          "path": "src/ui/tooltip.tsx",
           "type": "registry:ui"
         }
       ]
@@ -821,8 +873,8 @@
     {
       "name": "spechy-ui-all",
       "type": "registry:block",
-      "title": "Tüm Spechy UI bileşenleri",
-      "description": "Tek komutla tüm bileşenleri + tema dosyasını kurar.",
+      "title": "All Spechy UI components",
+      "description": "Installs every component plus the theme file in one command.",
       "registryDependencies": [
         "@spechy/theme",
         "@spechy/alert",
@@ -859,6 +911,7 @@
         "@spechy/table",
         "@spechy/tabs",
         "@spechy/textarea",
+        "@spechy/time-input",
         "@spechy/toggle",
         "@spechy/toggle-group",
         "@spechy/tooltip"

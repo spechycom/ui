@@ -9,8 +9,8 @@
   ],
   "files": [
     {
-      "path": "registry/spechy/ui/option-avatar.tsx",
-      "content": "import { initials } from '@/lib/utils'\nimport { Avatar, AvatarFallback } from '@/components/ui/avatar'\n\n/**\n * Çoklu seçim chip'lerinde/dropdown satırlarında kullanıcı/ekip seçeneği\n * için baş harf rozeti — `AsyncMultiSelect`, settings `MultiSelect` ve\n * filter-panel `MultiComboboxField`'ın üçünde de aynı görsel (Rule of\n * Three, CLAUDE.md § Temel prensipler — üçü de aynı `Avatar`+`initials`\n * bloğunu ayrı ayrı yazıyordu). Kalıcı proje kararı: multiselect seçenekleri\n * kullanıcı/ekip ise bu, kanal ise `option.icon`/`getChannelIcon` zorunlu.\n */\nexport function OptionAvatar({ label }: { label: string }) {\n  return (\n    // aria-hidden: baş harfleri label'ın kendisinin tekrarı — erişilebilir\n    // isme (ör. CommandItem'ın role=\"option\" adına) sızıp \"AY Ayşe Yılmaz\"\n    // gibi bir çiftlemeye yol açmasın.\n    <Avatar aria-hidden size=\"sm\">\n      <AvatarFallback className=\"bg-primary text-[10px] text-primary-foreground\">\n        {initials(label)}\n      </AvatarFallback>\n    </Avatar>\n  )\n}\n",
+      "path": "src/ui/option-avatar.tsx",
+      "content": "import { initials } from '@/lib/utils'\nimport { Avatar, AvatarFallback } from '@/components/ui/avatar'\n\n/** Initials badge for a user/team option in multi-select chips or dropdown rows — one shared source. */\nexport function OptionAvatar({ label }: { label: string }) {\n  return (\n    // aria-hidden: the initials just repeat the label, keep them out of the accessible name to avoid duplication.\n    <Avatar aria-hidden size=\"sm\">\n      <AvatarFallback className=\"bg-primary text-[10px] text-primary-foreground\">\n        {initials(label)}\n      </AvatarFallback>\n    </Avatar>\n  )\n}\n",
       "type": "registry:ui"
     }
   ],

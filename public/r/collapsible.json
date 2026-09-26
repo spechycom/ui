@@ -8,7 +8,7 @@
   "registryDependencies": [],
   "files": [
     {
-      "path": "registry/spechy/ui/collapsible.tsx",
+      "path": "src/ui/collapsible.tsx",
       "content": "import { Collapsible as CollapsiblePrimitive } from 'radix-ui'\n\nfunction Collapsible({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {\n  return <CollapsiblePrimitive.Root data-slot=\"collapsible\" {...props} />\n}\n\nfunction CollapsibleTrigger({\n  ...props\n}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {\n  return <CollapsiblePrimitive.CollapsibleTrigger data-slot=\"collapsible-trigger\" {...props} />\n}\n\nfunction CollapsibleContent({\n  ...props\n}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>) {\n  return <CollapsiblePrimitive.CollapsibleContent data-slot=\"collapsible-content\" {...props} />\n}\n\nexport { Collapsible, CollapsibleContent, CollapsibleTrigger }\n",
       "type": "registry:ui"
     }
