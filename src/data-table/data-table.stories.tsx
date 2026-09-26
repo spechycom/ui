@@ -78,6 +78,13 @@ export const Empty: Story = {
   },
 }
 
+export const ClientOnly: Story = {
+  args: {
+    columns,
+    data: PEOPLE.slice(0, 5),
+  },
+}
+
 export const CustomLabels: Story = {
   args: {
     columns,

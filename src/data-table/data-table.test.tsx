@@ -61,4 +61,27 @@ describe('DataTable', () => {
     expect(screen.queryByRole('link', { name: 'Ada Lovelace' })).not.toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Grace Hopper' })).toHaveAttribute('href', '/people/2')
   })
+
+  it('renders no pagination footer for a client-only list (no pageCount/onPageChange)', () => {
+    render(<DataTable columns={columns} data={data} />)
+
+    expect(screen.queryByRole('button', { name: 'Next page' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Previous page' })).not.toBeInTheDocument()
+    expect(screen.queryByText('Rows per page')).not.toBeInTheDocument()
+  })
+
+  it('renders the pagination footer once pageCount and onPageChange are both given', () => {
+    render(<DataTable {...baseProps()} />)
+    expect(screen.getByRole('button', { name: 'Next page' })).toBeInTheDocument()
+  })
+
+  it('never shows the page-size select unless pageSizeOptions is passed, even when paginated', () => {
+    render(<DataTable {...baseProps({ pageSizeOptions: undefined })} />)
+    expect(screen.queryByText('Rows per page')).not.toBeInTheDocument()
+  })
+
+  it('shows the page-size select when pageSizeOptions is passed', () => {
+    render(<DataTable {...baseProps({ pageSizeOptions: [10, 25, 50] })} />)
+    expect(screen.getByText('Rows per page')).toBeInTheDocument()
+  })
 })

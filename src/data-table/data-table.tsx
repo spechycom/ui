@@ -52,12 +52,18 @@ export type DataTableProps<TData> = {
    * Return `undefined` to leave a specific row non-navigable.
    */
   getRowHref?: (row: TData) => string | undefined
-  pageIndex: number
-  pageSize: number
-  pageCount: number
+  /**
+   * Omit `pageIndex`/`pageCount`/`onPageChange` together for a small, client-only list (e.g. a
+   * "currently live" table with no server paging) — the pagination footer doesn't render at all.
+   * Passing them turns on server-side paging: `pageCount` and `onPageChange` are then required.
+   */
+  pageIndex?: number
+  pageSize?: number
+  pageCount?: number
   /** Total row count across all pages, used for the "x-y of z" range label. Defaults to `pageCount * pageSize`. */
   rowCount?: number
-  onPageChange: (pagination: { pageIndex: number; pageSize: number }) => void
+  onPageChange?: (pagination: { pageIndex: number; pageSize: number }) => void
+  /** Page-size `<Select>` only renders when this is given — most tables have nothing to pick from. */
   pageSizeOptions?: number[]
   /** Shows skeleton rows instead of `data` (first load). */
   loading?: boolean
@@ -66,7 +72,7 @@ export type DataTableProps<TData> = {
   className?: string
 }
 
-/** Server-paginated data grid with an optional per-row link. See `DataTableProps`. */
+/** Data grid with an optional per-row link and optional server-side pagination. See `DataTableProps`. */
 export function DataTable<TData>({
   columns,
   data,
@@ -77,33 +83,40 @@ export function DataTable<TData>({
   pageCount,
   rowCount,
   onPageChange,
-  pageSizeOptions = [10, 25, 50],
+  pageSizeOptions,
   loading = false,
   emptyState,
   labels,
   className,
 }: DataTableProps<TData>) {
   const resolvedLabels = { ...DEFAULT_DATA_TABLE_LABELS, ...labels }
-  const totalRowCount = rowCount ?? pageCount * pageSize
+  const paginated = pageCount !== undefined && onPageChange !== undefined
+  const resolvedPageIndex = pageIndex ?? 0
+  const resolvedPageSize = pageSize ?? data.length
+  const totalRowCount = rowCount ?? (paginated ? pageCount * resolvedPageSize : data.length)
 
   const table = useReactTable({
     data,
     columns,
     ...(getRowId ? { getRowId } : {}),
-    state: { pagination: { pageIndex, pageSize } },
-    manualPagination: true,
-    pageCount,
-    onPaginationChange: (updater: Updater<PaginationState>) => {
-      const current = { pageIndex, pageSize }
-      onPageChange(typeof updater === 'function' ? updater(current) : updater)
-    },
+    ...(paginated
+      ? {
+          state: { pagination: { pageIndex: resolvedPageIndex, pageSize: resolvedPageSize } },
+          manualPagination: true as const,
+          pageCount,
+          onPaginationChange: (updater: Updater<PaginationState>) => {
+            const current = { pageIndex: resolvedPageIndex, pageSize: resolvedPageSize }
+            onPageChange(typeof updater === 'function' ? updater(current) : updater)
+          },
+        }
+      : {}),
     getCoreRowModel: getCoreRowModel(),
   })
 
   const rows = table.getRowModel().rows
   const isEmpty = !loading && rows.length === 0
-  const from = totalRowCount === 0 ? 0 : pageIndex * pageSize + 1
-  const to = Math.min(totalRowCount, (pageIndex + 1) * pageSize)
+  const from = totalRowCount === 0 ? 0 : resolvedPageIndex * resolvedPageSize + 1
+  const to = Math.min(totalRowCount, (resolvedPageIndex + 1) * resolvedPageSize)
 
   return (
     <div className={cn('flex flex-col rounded-lg border bg-card', className)}>
@@ -144,16 +157,18 @@ export function DataTable<TData>({
         </Table>
       )}
 
-      <DataTablePagination
-        pageIndex={pageIndex}
-        pageSize={pageSize}
-        pageCount={pageCount}
-        pageSizeOptions={pageSizeOptions}
-        range={resolvedLabels.range({ from, to, total: totalRowCount })}
-        labels={resolvedLabels}
-        onPageIndexChange={(next) => onPageChange({ pageIndex: next, pageSize })}
-        onPageSizeChange={(next) => onPageChange({ pageIndex: 0, pageSize: next })}
-      />
+      {paginated ? (
+        <DataTablePagination
+          pageIndex={resolvedPageIndex}
+          pageSize={resolvedPageSize}
+          pageCount={pageCount}
+          pageSizeOptions={pageSizeOptions}
+          range={resolvedLabels.range({ from, to, total: totalRowCount })}
+          labels={resolvedLabels}
+          onPageIndexChange={(next) => onPageChange({ pageIndex: next, pageSize: resolvedPageSize })}
+          onPageSizeChange={(next) => onPageChange({ pageIndex: 0, pageSize: next })}
+        />
+      ) : null}
     </div>
   )
 }
@@ -208,7 +223,7 @@ function DataTablePagination({
   pageIndex: number
   pageSize: number
   pageCount: number
-  pageSizeOptions: number[]
+  pageSizeOptions?: number[]
   range: string
   labels: Required<DataTableLabels>
   onPageIndexChange: (pageIndex: number) => void
@@ -219,21 +234,23 @@ function DataTablePagination({
       <p className="text-sm text-text-secondary">{range}</p>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-text-secondary">{labels.pageSizeLabel}</span>
-          <Select value={String(pageSize)} onValueChange={(value) => onPageSizeChange(Number(value))}>
-            <SelectTrigger size="sm" className="w-16">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {pageSizeOptions.map((size) => (
-                <SelectItem key={size} value={String(size)}>
-                  {size}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {pageSizeOptions && pageSizeOptions.length > 0 ? (
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-text-secondary">{labels.pageSizeLabel}</span>
+            <Select value={String(pageSize)} onValueChange={(value) => onPageSizeChange(Number(value))}>
+              <SelectTrigger size="sm" className="w-16">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {pageSizeOptions.map((size) => (
+                  <SelectItem key={size} value={String(size)}>
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ) : null}
 
         <div className="flex items-center gap-1">
           <Button
