@@ -117,6 +117,10 @@ export {
   getPaginationRange,
 } from '@/data-table'
 
+export { Logo, type LogoProps } from '@/logo'
+
+export { StatCard, type StatCardIcon, type StatCardProps } from '@/stat-card'
+
 export {
   AppSidebar,
   DEFAULT_APP_SIDEBAR_LABELS,
