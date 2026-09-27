@@ -1,8 +1,8 @@
-// ponytar: elle 37 registry item yazmak yerine importlardan otomatik üretim.
-// Yeni bileşen eklerken bu script tekrar çalıştırılır, çıktı gözden geçirilir.
+// ponytail: generates registry.json from real imports instead of hand-writing ~40 items.
+// Re-run this after adding/editing a component; review the diff.
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 
-const DIR = new URL('../registry/spechy/ui/', import.meta.url)
+const DIR = new URL('../src/ui/', import.meta.url)
 const BLOCKS_DIR = new URL('../registry/spechy/blocks/', import.meta.url)
 const NPM_DEP_MAP = {
   'radix-ui': 'radix-ui',
@@ -14,15 +14,15 @@ const NPM_DEP_MAP = {
   'react-day-picker': 'react-day-picker',
 }
 
-// Bir dosyanın import'larından dependencies/registryDependencies çıkarır.
-// `deps`/`registryDeps` çağıran tarafından verilir — birden fazla dosya
-// (ör. bir block klasöründeki tüm dosyalar) aynı Set'e biriktirebilir.
+// Extracts dependencies/registryDependencies from a file's imports.
+// `deps`/`registryDeps` are provided by the caller — several files (e.g. every
+// file in a block folder) can accumulate into the same Set.
 function collectImports(src, { deps, registryDeps, name }) {
   for (const m of src.matchAll(/from ['"]([^'"]+)['"]/g)) {
     const spec = m[1]
     if (spec === 'react' || spec === 'react/jsx-runtime') continue
-    if (spec === '@/lib/utils') {
-      registryDeps.add('@spechy/utils')
+    if (spec.startsWith('@/lib/')) {
+      registryDeps.add(`@spechy/${spec.replace('@/lib/', '')}`)
     } else if (spec.startsWith('@/components/ui/')) {
       registryDeps.add(`@spechy/${spec.replace('@/components/ui/', '')}`)
     } else if (spec.startsWith('@/hooks/')) {
@@ -30,7 +30,7 @@ function collectImports(src, { deps, registryDeps, name }) {
     } else if (NPM_DEP_MAP[spec]) {
       deps.add(NPM_DEP_MAP[spec])
     } else if (!spec.startsWith('.')) {
-      console.warn(`[${name}] eşlenmemiş import: ${spec} — registry.json'a elle eklenmeli`)
+      console.warn(`[${name}] unmapped import: ${spec} — add it to registry.json by hand`)
     }
   }
 }
@@ -45,7 +45,7 @@ for (const file of files) {
   const registryDeps = new Set()
 
   collectImports(src, { deps, registryDeps, name })
-  registryDeps.delete(`@spechy/${name}`) // kendine referans olmasın (barrel export tarama hatası)
+  registryDeps.delete(`@spechy/${name}`) // no self-reference (barrel export would otherwise pick itself up)
 
   items.push({
     name,
@@ -53,14 +53,14 @@ for (const file of files) {
     title: name,
     dependencies: [...deps].sort(),
     registryDependencies: [...registryDeps].sort(),
-    files: [{ path: `registry/spechy/ui/${file}`, type: 'registry:ui' }],
+    files: [{ path: `src/ui/${file}`, type: 'registry:ui' }],
   })
 }
 
 items.sort((a, b) => a.name.localeCompare(b.name))
 
-// registry/spechy/blocks/<klasör>/ → tek bir registry:block item.
-// Klasör yoksa (henüz block eklenmemiş) sessizce sıfır item üretir.
+// registry/spechy/blocks/<folder>/ → one registry:block item each.
+// A missing folder (no blocks added yet) silently yields zero items.
 const blockItems = []
 const blockDirNames = existsSync(BLOCKS_DIR)
   ? readdirSync(BLOCKS_DIR, { withFileTypes: true })
@@ -71,10 +71,10 @@ const blockDirNames = existsSync(BLOCKS_DIR)
 for (const name of blockDirNames) {
   const blockDir = new URL(`${name}/`, BLOCKS_DIR)
   const blockFiles = readdirSync(blockDir, { withFileTypes: true })
-    .filter((d) => d.isFile() && !d.name.startsWith('.')) // .DS_Store vb. dosya sistemi çöpünü atla
+    .filter((d) => d.isFile() && !d.name.startsWith('.')) // skip .DS_Store and the like
     .map((d) => d.name)
     .sort()
-  if (blockFiles.length === 0) continue // henüz dosya eklenmemiş klasör — item üretme
+  if (blockFiles.length === 0) continue // folder exists but has no files yet — no item
 
   const deps = new Set()
   const registryDeps = new Set()
@@ -83,7 +83,7 @@ for (const name of blockDirNames) {
     const src = readFileSync(new URL(file, blockDir), 'utf8')
     collectImports(src, { deps, registryDeps, name })
   }
-  registryDeps.delete(`@spechy/${name}`) // kendine referans olmasın (ui loop'uyla aynı guard)
+  registryDeps.delete(`@spechy/${name}`) // same self-reference guard as the ui loop
 
   blockItems.push({
     name,
@@ -111,32 +111,53 @@ const registry = {
       type: 'registry:lib',
       title: 'utils',
       dependencies: ['clsx', 'tailwind-merge'],
-      files: [{ path: 'registry/spechy/lib/utils.ts', type: 'registry:lib' }],
+      files: [{ path: 'src/lib/utils.ts', type: 'registry:lib' }],
+    },
+    {
+      name: 'portal-container',
+      type: 'registry:lib',
+      title: 'portal-container',
+      description:
+        'Lets nested overlays (Popover/Select/DropdownMenu) portal into an outer Dialog/Sheet\'s content node instead of `document.body`, so scroll locking keeps working.',
+      files: [{ path: 'src/lib/portal-container.tsx', type: 'registry:lib' }],
     },
     {
       name: 'use-theme',
       type: 'registry:hook',
       title: 'use-theme',
       description:
-        'ThemeProvider + useTheme() — light/dark/system tema seçimini localStorage’a yazar, <html>’e `dark` class’ını uygular, "system" seçiliyken işletim sistemi tercihini dinler.',
+        'ThemeProvider + useTheme() — writes the light/dark/system choice to localStorage, applies the `dark` class to `<html>`, and follows the OS preference while "system" is selected.',
       files: [
         {
-          path: 'registry/spechy/hooks/use-theme.tsx',
+          path: 'src/hooks/use-theme.tsx',
           type: 'registry:hook',
           target: '~/hooks/use-theme.tsx',
         },
       ],
     },
     {
+      name: 'use-horizontal-scroll-fade',
+      type: 'registry:hook',
+      title: 'use-horizontal-scroll-fade',
+      description: 'Scroll-edge state for a horizontally scrollable bar, to fade in a "more content" hint.',
+      files: [
+        {
+          path: 'src/hooks/use-horizontal-scroll-fade.ts',
+          type: 'registry:hook',
+          target: '~/hooks/use-horizontal-scroll-fade.ts',
+        },
+      ],
+    },
+    {
       name: 'theme',
       type: 'registry:file',
-      title: 'Spechy tasarım token’ları',
+      title: 'Spechy design tokens',
       description:
-        'Bileşenlerin render için ihtiyaç duyduğu CSS değişkenleri (renk, control yüksekliği, radius, gölge, animasyon). Önce bu eklenmeli.',
+        'The CSS variables components need to render (color, control height, radius, shadow, animation). Add this first.',
       dependencies: ['tw-animate-css'],
       files: [
         {
-          path: 'registry/spechy/theme/spechy-ui-theme.css',
+          path: 'src/theme.css',
           type: 'registry:file',
           target: '~/styles/spechy-ui-theme.css',
         },
@@ -147,8 +168,8 @@ const registry = {
     {
       name: 'spechy-ui-all',
       type: 'registry:block',
-      title: 'Tüm Spechy UI bileşenleri',
-      description: 'Tek komutla tüm bileşenleri + tema dosyasını kurar.',
+      title: 'All Spechy UI components',
+      description: 'Installs every component plus the theme file in one command.',
       registryDependencies: ['@spechy/theme', ...items.map((i) => `@spechy/${i.name}`)],
       files: [],
     },
@@ -156,4 +177,6 @@ const registry = {
 }
 
 writeFileSync(new URL('../registry.json', import.meta.url), `${JSON.stringify(registry, null, 2)}\n`)
-console.log(`${items.length} bileşen + ${blockItems.length} block + utils + bundle → registry.json yazıldı`)
+console.log(
+  `${items.length} components + ${blockItems.length} blocks + utils/hooks/theme + bundle → registry.json written`,
+)

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "spechy-ui-all",
-  "title": "Tüm Spechy UI bileşenleri",
-  "description": "Tek komutla tüm bileşenleri + tema dosyasını kurar.",
+  "title": "All Spechy UI components",
+  "description": "Installs every component plus the theme file in one command.",
   "registryDependencies": [
     "@spechy/theme",
     "@spechy/alert",
@@ -39,6 +39,7 @@
     "@spechy/table",
     "@spechy/tabs",
     "@spechy/textarea",
+    "@spechy/time-input",
     "@spechy/toggle",
     "@spechy/toggle-group",
     "@spechy/tooltip"

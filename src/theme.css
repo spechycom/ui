@@ -1,0 +1,671 @@
+/*
+ * Spechy UI design tokens. Import this AFTER `@import "tailwindcss"` in your
+ * app's main CSS file — this file intentionally does not import Tailwind
+ * itself. Requires Tailwind v4. Inter is referenced as a CSS variable only;
+ * see the package README for the Google Fonts `<link>`/`@import` line.
+ */
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* So native scrollbars/form controls render in the right theme. */
+  color-scheme: light;
+
+  /* --- Brand blue --- */
+  --brand-50: #eef1ff;
+  --brand-100: #dde3ff;
+  --brand-200: #bfc9ff;
+  --brand-300: #94a4ff;
+  --brand-400: #6478ff;
+  --brand-500: #2b4aff;
+  --brand-600: #1a35e0;
+  --brand-700: #1429b4;
+  --brand-800: #122490;
+  --brand-900: #131f6e;
+
+  /* --- Cool neutrals --- */
+  --neutral-0: #ffffff;
+  --neutral-25: #fbfcfe;
+  --neutral-50: #f6f8fb;
+  --neutral-100: #eef1f6;
+  --neutral-200: #e2e7ef;
+  --neutral-300: #cbd3e1;
+  --neutral-400: #97a3b6;
+  --neutral-500: #6b7890;
+  --neutral-600: #4c5870;
+  --neutral-700: #364155;
+  --neutral-800: #212b3d;
+  --neutral-900: #121826;
+  --neutral-950: #0a0e18;
+
+  /* --- Status ramps --- */
+  --success-50: #ecfdf5;
+  --success-200: #a7f3d0;
+  --success-500: #10b981;
+  --success-700: #047857;
+  --warning-50: #fffbeb;
+  --warning-200: #fde68a;
+  --warning-500: #f59e0b;
+  --warning-700: #b45309;
+  --danger-50: #fef2f2;
+  --danger-200: #fecaca;
+  --danger-500: #ef4444;
+  --danger-700: #b91c1c;
+  --info-50: #e0f2fe;
+  --info-200: #bae6fd;
+  --info-500: #0ea5e9;
+  --info-700: #0369a1;
+  --violet-50: #f5f3ff;
+  --violet-200: #ddd6fe;
+  --violet-500: #8b5cf6;
+  --violet-700: #6d28d9;
+  --teal-50: #f0fdfa;
+  --teal-200: #99f6e4;
+  --teal-500: #14b8a6;
+  --teal-700: #0f766e;
+
+  /* Text tones, darkest to lightest: foreground > text-secondary > muted-foreground (menu/placeholder) > text-faint. */
+  --text-secondary: var(--neutral-400);
+  --text-faint: var(--neutral-400);
+
+  /* --- Presence / status dots --- */
+  --status-online: var(--success-500);
+  --status-busy: var(--danger-500);
+  --status-away: var(--warning-500);
+  --status-offline: var(--neutral-300);
+
+  /* --- shadcn semantic slots (light) --- */
+  --background: var(--neutral-50);
+  --foreground: var(--neutral-900);
+  --card: var(--neutral-0);
+  --card-foreground: var(--neutral-900);
+  --popover: var(--neutral-0);
+  --popover-foreground: var(--neutral-900);
+  --primary: var(--brand-500);
+  --primary-foreground: var(--neutral-0);
+  --secondary: var(--neutral-100);
+  --secondary-foreground: var(--neutral-900);
+  --accent: var(--neutral-100);
+  --accent-foreground: var(--neutral-900);
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-600);
+  --border: var(--neutral-200);
+  --input: var(--neutral-200);
+  --ring: var(--brand-500);
+  --destructive: var(--danger-500);
+  --radius: 0.625rem;
+
+  /* --- Chart series, derived from the existing scales --- */
+  --chart-1: var(--brand-500);
+  --chart-2: var(--info-500);
+  --chart-3: var(--success-500);
+  --chart-4: var(--warning-500);
+  --chart-5: var(--danger-500);
+
+  /* --- Spacing scale (matches Tailwind's 4px-based scale 1:1, kept for reference) --- */
+  --space-0: 0px;
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-8: 16px;
+  --space-10: 20px;
+  --space-12: 24px;
+  --space-16: 32px;
+  --space-20: 40px;
+  --space-24: 48px;
+  --space-32: 64px;
+  --space-40: 80px;
+  --space-48: 96px;
+  --space-64: 128px;
+  --space-80: 160px;
+  --gutter-inline: 24px;
+  --section-y: 112px;
+  --section-y-compact: 72px;
+  --container-max: 1200px;
+  --container-narrow: 760px;
+  --container-wide: 1400px;
+
+  /* --- Control heights --- */
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 48px;
+  --control-xl: 56px;
+  --touch-min: 44px;
+
+  /* --- Corner radii (raw scale) --- */
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-14: 14px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-28: 28px;
+  --radius-32: 32px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* --- Elevation (role-based; sizes live in @theme) --- */
+  --shadow-inset-hairline: inset 0 0 0 1px rgba(18, 24, 38, 0.06);
+  --shadow-inset-top: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --ring-brand: 0 0 0 3px rgba(43, 74, 255, 0.18);
+  --ring-danger: 0 0 0 3px rgba(239, 68, 68, 0.18);
+  --ring-inverse: 0 0 0 3px rgba(255, 255, 255, 0.24);
+
+  /* --- Surface tones (card backgrounds) --- */
+  --surface-page: var(--neutral-50);
+  --surface-card: var(--neutral-0);
+  --surface-subtle: var(--neutral-25);
+  --surface-sunken: var(--neutral-100);
+  --surface-brand-subtle: var(--brand-50);
+  --surface-inverse: var(--neutral-950);
+
+  /* --- Motion: duration (easing curves are in @theme) --- */
+  --duration-instant: 80ms;
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 320ms;
+  --duration-slower: 600ms;
+  --transition-control:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+  --transition-surface:
+    box-shadow var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  --press-scale: 0.98;
+  --hover-lift: -1px;
+
+  /* --- Typography (font-family lives in @theme) --- */
+  --text-11: 11px;
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-15: 15px;
+  --text-16: 16px;
+  --text-18: 18px;
+  --text-20: 20px;
+  --text-24: 24px;
+  --text-30: 30px;
+  --text-36: 36px;
+  --text-44: 44px;
+  --text-56: 56px;
+  --text-68: 68px;
+  --leading-tight: 1.05;
+  --leading-snug: 1.15;
+  --leading-heading: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.022em;
+  --tracking-tight: -0.012em;
+  --tracking-eyebrow: 0.08em;
+  --type-display: 800 var(--text-56) / var(--leading-snug) var(--font-display);
+  --type-h1: 700 var(--text-44) / var(--leading-snug) var(--font-display);
+  --type-h2: 700 var(--text-36) / var(--leading-heading) var(--font-display);
+  --type-h3: 700 var(--text-24) / var(--leading-heading) var(--font-display);
+  --type-h4: 600 var(--text-20) / var(--leading-heading) var(--font-display);
+  --type-lead: 400 var(--text-20) / var(--leading-relaxed) var(--font-text);
+  --type-body: 400 var(--text-16) / var(--leading-relaxed) var(--font-text);
+  --type-body-sm: 400 var(--text-14) / var(--leading-normal) var(--font-text);
+  --type-ui: 500 var(--text-14) / 1.4 var(--font-text);
+  --type-ui-sm: 500 var(--text-13) / 1.4 var(--font-text);
+  --type-caption: 500 var(--text-12) / 1.4 var(--font-text);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: var(--neutral-950);
+  --foreground: var(--neutral-50);
+  --card: #161c2b;
+  --card-foreground: var(--neutral-50);
+  --popover: #161c2b;
+  --popover-foreground: var(--neutral-50);
+  --primary: var(--brand-400);
+  --primary-foreground: var(--neutral-0);
+  --secondary: var(--neutral-800);
+  --secondary-foreground: var(--neutral-50);
+  --accent: var(--neutral-800);
+  --accent-foreground: var(--neutral-50);
+  --muted: var(--neutral-800);
+  --muted-foreground: var(--neutral-400);
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: var(--brand-400);
+  --destructive: #f87171;
+
+  --chart-1: var(--brand-400);
+  --chart-2: var(--info-500);
+  --chart-3: var(--success-500);
+  --chart-4: var(--warning-500);
+  --chart-5: var(--danger-500);
+
+  --text-secondary: var(--neutral-300);
+  --text-faint: var(--neutral-500);
+
+  --surface-page: var(--neutral-950);
+  --surface-card: #161c2b;
+  --surface-subtle: #10141f;
+  --surface-sunken: var(--neutral-900);
+  --surface-brand-subtle: rgba(43, 74, 255, 0.14);
+  --surface-inverse: var(--neutral-0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Exposed as raw Tailwind color palettes */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+
+  --color-neutral-0: var(--neutral-0);
+  --color-neutral-25: var(--neutral-25);
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+
+  --color-success-50: var(--success-50);
+  --color-success-200: var(--success-200);
+  --color-success-500: var(--success-500);
+  --color-success-700: var(--success-700);
+  --color-warning-50: var(--warning-50);
+  --color-warning-200: var(--warning-200);
+  --color-warning-500: var(--warning-500);
+  --color-warning-700: var(--warning-700);
+  --color-danger-50: var(--danger-50);
+  --color-danger-200: var(--danger-200);
+  --color-danger-500: var(--danger-500);
+  --color-danger-700: var(--danger-700);
+  --color-info-50: var(--info-50);
+  --color-info-200: var(--info-200);
+  --color-info-500: var(--info-500);
+  --color-info-700: var(--info-700);
+  --color-violet-50: var(--violet-50);
+  --color-violet-200: var(--violet-200);
+  --color-violet-500: var(--violet-500);
+  --color-violet-700: var(--violet-700);
+  --color-teal-50: var(--teal-50);
+  --color-teal-200: var(--teal-200);
+  --color-teal-500: var(--teal-500);
+  --color-teal-700: var(--teal-700);
+
+  --color-text-secondary: var(--text-secondary);
+  --color-text-faint: var(--text-faint);
+
+  --color-status-online: var(--status-online);
+  --color-status-busy: var(--status-busy);
+  --color-status-away: var(--status-away);
+  --color-status-offline: var(--status-offline);
+
+  --color-surface-page: var(--surface-page);
+  --color-surface-card: var(--surface-card);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-brand-subtle: var(--surface-brand-subtle);
+  --color-surface-inverse: var(--surface-inverse);
+
+  /* Corner-radius roles, fixed regardless of theme/mode */
+  --radius-control: 10px;
+  --radius-input: 10px;
+  --radius-card: 20px;
+  --radius-panel: 24px;
+  --radius-sheet: 28px;
+  --radius-chip: 999px;
+  --radius-avatar: 999px;
+  --radius-media: 16px;
+
+  /* Elevation (fixed) */
+  --shadow-xs: 0 1px 2px rgba(18, 24, 38, 0.06);
+  --shadow-sm: 0 1px 3px rgba(18, 24, 38, 0.08), 0 1px 2px -1px rgba(18, 24, 38, 0.06);
+  --shadow-md: 0 4px 12px -2px rgba(18, 24, 38, 0.08), 0 2px 6px -2px rgba(18, 24, 38, 0.05);
+  --shadow-lg: 0 12px 28px -6px rgba(18, 24, 38, 0.12), 0 4px 10px -4px rgba(18, 24, 38, 0.06);
+  --shadow-xl: 0 28px 60px -12px rgba(18, 24, 38, 0.18), 0 8px 20px -8px rgba(18, 24, 38, 0.08);
+  --shadow-brand: 0 10px 26px -8px rgba(43, 74, 255, 0.45);
+
+  /* Motion easing (fixed) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-dots: spechy-dots 1.2s var(--ease-in-out) infinite;
+  --animate-pulse-brand: spechy-pulse 1.6s var(--ease-standard) infinite;
+  --animate-rise: spechy-rise var(--duration-slow) var(--ease-out) both;
+  --animate-ring: spechy-ring var(--duration-slower) var(--ease-spring);
+  --animate-ripple: spechy-ripple 2s var(--ease-standard) infinite;
+  --animate-call-in: spechy-call-in 0.45s var(--ease-out) both;
+  --animate-expand: spechy-expand 0.28s var(--ease-out) both;
+  --animate-track: spechy-track 1.4s var(--ease-in-out) infinite;
+
+  /* Typography (fixed) */
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-text: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --text-sm: 0.8125rem; /* 13px instead of Tailwind's 14px default — for dense data screens */
+}
+
+/* Indeterminate progress bar, for a connection of unknown duration. */
+@keyframes spechy-track {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+@keyframes spechy-dots {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  40% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+@keyframes spechy-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(43, 74, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(43, 74, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(43, 74, 255, 0);
+  }
+}
+
+/*
+ * A colored ring spreading from an element. Color comes from `currentColor`,
+ * so the caller only sets the text color — no per-status keyframe needed.
+ */
+@keyframes spechy-ripple {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 40%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+/* Entrance for a card-like element: rises from below while scaling up slightly. */
+@keyframes spechy-call-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Expand-in-place for a section that opens inside a card, without shifting layout. */
+@keyframes spechy-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scaleY(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spechy-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* One-shot bell-icon wiggle for a new notification — use with `origin-top`. */
+@keyframes spechy-ring {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(14deg);
+  }
+  30% {
+    transform: rotate(-11deg);
+  }
+  45% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+}
+
+/* Composite typography roles, for plain text outside the component set. */
+@utility text-display {
+  font: var(--type-display);
+  letter-spacing: var(--tracking-display);
+}
+@utility text-h1 {
+  font: var(--type-h1);
+  letter-spacing: var(--tracking-heading);
+}
+@utility text-h2 {
+  font: var(--type-h2);
+  letter-spacing: var(--tracking-heading);
+}
+@utility text-h3 {
+  font: var(--type-h3);
+  letter-spacing: var(--tracking-heading);
+}
+@utility text-h4 {
+  font: var(--type-h4);
+  letter-spacing: var(--tracking-tight);
+}
+@utility text-lead {
+  font: var(--type-lead);
+  letter-spacing: var(--tracking-tight);
+}
+@utility text-body {
+  font: var(--type-body);
+}
+@utility text-body-sm {
+  font: var(--type-body-sm);
+}
+@utility text-ui {
+  font: var(--type-ui);
+}
+@utility text-ui-sm {
+  font: var(--type-ui-sm);
+}
+@utility text-caption {
+  font: var(--type-caption);
+}
+/* Small caps-style eyebrow label (sidebar section headers, menu group titles). */
+@utility text-eyebrow {
+  font: 600 11px / 1 var(--font-text);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+/* Thumb color only appears on hover; `scrollbar-width` never changes so layout doesn't shift. */
+@utility scrollbar-hover-reveal {
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.15s ease;
+  &:hover {
+    scrollbar-color: var(--border) transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+  }
+}
+/* Scrollbar fully hidden, takes no width — scrolling (wheel/keyboard) still works. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  /* One shared scrollbar theme, inherited from `html` by every scroll container. */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--muted-foreground);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font: var(--type-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+
+  ::selection {
+    background-color: var(--brand-200);
+    color: var(--brand-900);
+  }
+}
+
+/*
+ * RTL — directional icons get mirrored.
+ *
+ * Tailwind's logical classes (`ms-`/`me-`/`ps-`/`pe-`) solve spacing but don't
+ * flip the icon's own artwork: a right-pointing "forward" arrow should point
+ * left in Arabic. Instead of patching every call site, this targets the
+ * `tabler-icon-<name>` class `@tabler/icons-react` renders — new usages are
+ * covered automatically, the rule list stays in one place.
+ *
+ * `transform` was chosen because Tailwind v4's `rotate-*` utilities write a
+ * separate `rotate` property; the two compose without conflict (e.g. an
+ * accordion's chevron, already rotated 90° when open, still points the right
+ * way in RTL).
+ *
+ * Deliberately NOT in this list: `toggle-left/right` (a switch state, not a
+ * direction), `align-left/right` (text alignment, a concrete choice the user made).
+ */
+[dir="rtl"]
+:is(
+  .tabler-icon-arrow-left,
+  .tabler-icon-arrow-right,
+  .tabler-icon-arrow-narrow-left,
+  .tabler-icon-arrow-narrow-right,
+  .tabler-icon-chevron-left,
+  .tabler-icon-chevron-right,
+  .tabler-icon-chevrons-left,
+  .tabler-icon-chevrons-right,
+  .tabler-icon-arrow-back-up,
+  .tabler-icon-arrow-back-up-double,
+  .tabler-icon-arrow-forward-up,
+  .tabler-icon-corner-up-left,
+  .tabler-icon-mail-forward,
+  .tabler-icon-layout-sidebar-left-collapse,
+  .tabler-icon-layout-sidebar-left-expand,
+  .tabler-icon-layout-sidebar-right-collapse,
+  .tabler-icon-layout-sidebar-right-expand
+) {
+  transform: scaleX(-1);
+}
